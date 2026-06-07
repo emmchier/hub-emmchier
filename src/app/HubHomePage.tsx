@@ -14,6 +14,7 @@ import {
   DownloadIcon,
   Header,
   MoreVerticalIcon,
+  RoleCard,
   Tab,
   TabItem,
   Text,
@@ -388,16 +389,51 @@ export default function HubHomePage() {
           {/* ── Tab 0: Sites. ─────────────────────────────────────────────── */}
           <TabItem label={t.sites}>
             <div className="relative pb-[72px] md:pb-4">
-              <div className="md:px-[16px] flex items-center justify-center min-h-[40vh]">
-                {/* Sites content — coming soon */}
-                <Text
-                  type="body"
-                  size="m"
-                  color="primary"
-                  className="opacity-40"
-                >
-                  Coming soon.
-                </Text>
+              <div className="md:px-[16px]">
+                {/* 3-column layout: intro | art card | design card */}
+                <div className="flex flex-col md:flex-row md:gap-[8px] pt-4 md:pt-[32px] px-4 md:px-0 gap-4 pb-4 md:pb-0">
+                  {/* Col 1 — Intro (33.33%) */}
+                  <div className="w-full md:w-1/3 flex flex-col justify-start md:justify-center gap-3 md:pr-[16px]">
+                    <Text
+                      type="title"
+                      size="m"
+                      weight="bold"
+                      heading="h2"
+                      className="text-[#569CC3]"
+                    >
+                      {t.sitesIntroTitle}
+                    </Text>
+                    <Text type="body" size="m" className="text-primary-text">
+                      {t.sitesIntroBody}
+                    </Text>
+                  </div>
+
+                  {/* Col 2 — art.emmchier.com (33.33%) */}
+                  <div className="w-full md:w-1/3">
+                    <RoleCard
+                      ariaLabel="Visit art.emmchier.com"
+                      url="art.emmchier.com"
+                      title="art."
+                      colorTitle="#67CFCB"
+                      link="https://art.emmchier.com"
+                      description={t.sitesArtDescription}
+                      state="enabled"
+                    />
+                  </div>
+
+                  {/* Col 3 — design.emmchier.com (33.33%, disabled) */}
+                  <div className="w-full md:w-1/3">
+                    <RoleCard
+                      ariaLabel="design.emmchier.com — coming soon"
+                      url="design.emmchier.com"
+                      title="design."
+                      colorTitle="#F6D4C2"
+                      link="#"
+                      description={t.sitesDesignDescription}
+                      state="disabled"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </TabItem>

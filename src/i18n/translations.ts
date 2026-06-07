@@ -48,6 +48,16 @@ export const translations = {
     sites: 'Sites.',
     download: 'Download resumé',
     share: 'Share',
+
+    // Sites tab
+    sitesIntroTitle:
+      "Hi, I'm Emmanuel Chierchie, illustrator, UX/UI designer and UI developer",
+    sitesIntroBody:
+      'Each section leads to a dedicated site, focused on a specific part of my creative process. Feel free to explore and jump into whatever catches your eye.',
+    sitesArtDescription:
+      'Illustrations, paintings, characters, sketchbooks and books. Original work organized in series and collections.',
+    sitesDesignDescription:
+      'UX/UI design and UI development projects — interfaces, products and digital experiences built for the industry.',
   },
   es: {
     // Nav / Chrome
@@ -90,6 +100,16 @@ export const translations = {
     sites: 'Sitios.',
     download: 'Descargar currículum',
     share: 'Compartir',
+
+    // Sites tab
+    sitesIntroTitle:
+      'Hola, soy Emmanuel Chierchie, ilustrador, diseñador UX/UI y desarrollador UI',
+    sitesIntroBody:
+      'Cada sección lleva a un sitio dedicado, enfocado en una parte específica de mi proceso creativo. Explorá libremente y entrá en lo que te llame la atención.',
+    sitesArtDescription:
+      'Ilustraciones, pinturas, personajes, sketchbooks y libros. Trabajo original organizado en series y colecciones.',
+    sitesDesignDescription:
+      'Proyectos de diseño UX/UI y desarrollo UI — interfaces, productos y experiencias digitales para la industria.',
   },
 } as const;
 

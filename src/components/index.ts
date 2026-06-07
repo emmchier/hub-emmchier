@@ -1,5 +1,6 @@
 // custom
 export * from './header/Header';
+export * from './ui/role-card/RoleCard';
 
 // ui
 export * from './ui/button/Button';

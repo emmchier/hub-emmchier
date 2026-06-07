@@ -358,7 +358,7 @@ export default function HubHomePage() {
               if (pathname !== '/') router.replace('/');
             }
           }}
-          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 md:border-b md:border-[#2F506B] min-h-[72px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
+          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 min-h-[72px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
           sideContent={
             <div className="relative z-10 flex w-full items-center overflow-visible px-[16px] md:z-auto md:px-[16px]">
               <div className="flex w-full flex-row items-center gap-2 overflow-visible">

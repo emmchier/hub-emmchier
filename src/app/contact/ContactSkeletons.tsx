@@ -2,6 +2,98 @@
 
 import { Skeleton } from '@/components/ui/skeleton/Skeleton';
 
+// ── Sites tab skeleton ─────────────────────────────────────────────────────────
+
+function SiteCardSkeleton({ isDesktop }: { isDesktop: boolean }) {
+  return (
+    <div
+      className={[
+        'w-full border border-[#21516B] bg-[#13384D] flex flex-col',
+        isDesktop ? 'h-[70vh] p-[24px]' : 'min-h-[200px] p-[16px]',
+      ].join(' ')}
+    >
+      {/* URL label row */}
+      <div className="flex items-start justify-between">
+        <Skeleton className="rounded-none h-[18px] w-[160px]" />
+      </div>
+
+      {/* Big outline title — tall block mimicking the clamp text */}
+      <div
+        className={[
+          'mt-[16px]',
+          isDesktop ? 'flex flex-1 items-center' : '',
+        ].join(' ')}
+      >
+        <Skeleton
+          className={[
+            'rounded-none',
+            isDesktop ? 'h-[88px] w-[82%]' : 'h-[60px] w-[72%]',
+          ].join(' ')}
+        />
+      </div>
+
+      {/* Description lines — bottom-right */}
+      <div
+        className={[
+          'flex flex-col gap-[8px]',
+          isDesktop ? 'mt-auto w-1/2 ml-auto' : 'mt-[28px]',
+        ].join(' ')}
+      >
+        <Skeleton className="rounded-none h-[13px] w-full" />
+        <Skeleton className="rounded-none h-[13px] w-[88%]" />
+        <Skeleton className="rounded-none h-[13px] w-[70%]" />
+      </div>
+    </div>
+  );
+}
+
+export function SitesTabSkeleton() {
+  return (
+    <div className="w-full pt-[24px]">
+      {/* Desktop (md+): 3 columns */}
+      <div className="hidden md:flex w-full gap-[8px] items-start">
+        {/* Col 1 — intro text */}
+        <div className="w-1/3 flex flex-col gap-[12px] pr-[16px]">
+          <Skeleton className="rounded-none h-[22px] w-[92%]" />
+          <Skeleton className="rounded-none h-[22px] w-[76%]" />
+          <Skeleton className="rounded-none h-[22px] w-[84%]" />
+          <div className="mt-[4px] flex flex-col gap-[8px]">
+            <Skeleton className="rounded-none h-[15px] w-full" />
+            <Skeleton className="rounded-none h-[15px] w-[90%]" />
+            <Skeleton className="rounded-none h-[15px] w-[68%]" />
+          </div>
+        </div>
+        {/* Col 2 — art card */}
+        <div className="w-1/3">
+          <SiteCardSkeleton isDesktop />
+        </div>
+        {/* Col 3 — design card */}
+        <div className="w-1/3">
+          <SiteCardSkeleton isDesktop />
+        </div>
+      </div>
+
+      {/* Mobile: stacked */}
+      <div className="flex md:hidden flex-col gap-4 px-4">
+        {/* Intro text */}
+        <div className="flex flex-col gap-[10px]">
+          <Skeleton className="rounded-none h-[20px] w-[88%]" />
+          <Skeleton className="rounded-none h-[20px] w-[72%]" />
+          <div className="mt-[2px] flex flex-col gap-[8px]">
+            <Skeleton className="rounded-none h-[14px] w-full" />
+            <Skeleton className="rounded-none h-[14px] w-[85%]" />
+            <Skeleton className="rounded-none h-[14px] w-[64%]" />
+          </div>
+        </div>
+        {/* art card */}
+        <SiteCardSkeleton isDesktop={false} />
+        {/* design card */}
+        <SiteCardSkeleton isDesktop={false} />
+      </div>
+    </div>
+  );
+}
+
 function SayHelloCardSkeleton() {
   return (
     <div className="flex h-full min-h-[72px] w-full flex-col justify-end bg-[#13384D] p-2 md:min-h-[96px] md:p-4">

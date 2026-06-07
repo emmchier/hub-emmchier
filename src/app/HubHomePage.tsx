@@ -38,6 +38,7 @@ import { BaseModal } from '@/components';
 import {
   ResumeTabSkeleton,
   SayHelloTabSkeleton,
+  SitesTabSkeleton,
 } from '@/app/contact/ContactSkeletons';
 import {
   copyLink,
@@ -389,49 +390,79 @@ export default function HubHomePage() {
           {/* ── Tab 0: Sites. ─────────────────────────────────────────────── */}
           <TabItem label={t.sites}>
             <div className="relative pb-[72px] md:pb-4">
+              {/* Skeleton overlay — fades out once skeleton session ends */}
+              {activeTabIndex === TAB_SITES && (
+                <div
+                  className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
+                  aria-hidden="true"
+                  style={{
+                    opacity: showTabContentSkeleton ? 1 : 0,
+                    transition: showTabContentSkeleton
+                      ? 'none'
+                      : 'opacity 500ms ease-out',
+                  }}
+                >
+                  <div className="w-full md:px-[16px]">
+                    <SitesTabSkeleton />
+                  </div>
+                </div>
+              )}
+
               <div className="md:px-[16px]">
                 {/* 3-column layout: intro | art card | design card */}
                 <div className="flex flex-col md:flex-row md:items-start md:gap-[8px] pt-[24px] px-4 md:px-0 gap-4 pb-4 md:pb-0">
                   {/* Col 1 — Intro (33.33%) */}
-                  <div className="w-full md:w-1/3 flex flex-col justify-start gap-3 md:pr-[16px]">
-                    <Text
-                      type="title"
-                      size="m"
-                      weight="bold"
-                      heading="h2"
-                      className="text-[#569CC3]"
-                    >
-                      {t.sitesIntroTitle}
-                    </Text>
-                    <Text type="body" size="m" className="text-primary-text">
-                      {t.sitesIntroBody}
-                    </Text>
+                  <div className="w-full md:w-1/3">
+                    <FadeInCard index={0}>
+                      <div className="flex flex-col justify-start gap-3 md:pr-[16px]">
+                        <Text
+                          type="title"
+                          size="m"
+                          weight="bold"
+                          heading="h2"
+                          className="text-[#569CC3]"
+                        >
+                          {t.sitesIntroTitle}
+                        </Text>
+                        <Text
+                          type="body"
+                          size="m"
+                          className="text-primary-text"
+                        >
+                          {t.sitesIntroBody}
+                        </Text>
+                      </div>
+                    </FadeInCard>
                   </div>
 
                   {/* Col 2 — art.emmchier.com (33.33%) */}
                   <div className="w-full md:w-1/3">
-                    <RoleCard
-                      ariaLabel="Visit art.emmchier.com"
-                      url="art.emmchier.com"
-                      title="art."
-                      colorTitle="#67CFCB"
-                      link="https://art.emmchier.com"
-                      description={t.sitesArtDescription}
-                      state="enabled"
-                    />
+                    <FadeInCard index={1}>
+                      <RoleCard
+                        ariaLabel="Visit art.emmchier.com"
+                        url="art.emmchier.com"
+                        title="art."
+                        colorTitle="#67CFCB"
+                        link="https://art.emmchier.com"
+                        description={t.sitesArtDescription}
+                        state="enabled"
+                      />
+                    </FadeInCard>
                   </div>
 
                   {/* Col 3 — design.emmchier.com (33.33%, disabled) */}
                   <div className="w-full md:w-1/3">
-                    <RoleCard
-                      ariaLabel="design.emmchier.com — coming soon"
-                      url="design.emmchier.com"
-                      title="design."
-                      colorTitle="#F6D4C2"
-                      link="#"
-                      description={t.sitesDesignDescription}
-                      state="disabled"
-                    />
+                    <FadeInCard index={2}>
+                      <RoleCard
+                        ariaLabel="design.emmchier.com — coming soon"
+                        url="design.emmchier.com"
+                        title="design."
+                        colorTitle="#F6D4C2"
+                        link="#"
+                        description={t.sitesDesignDescription}
+                        state="disabled"
+                      />
+                    </FadeInCard>
                   </div>
                 </div>
               </div>

@@ -1,58 +1,46 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import Script from 'next/script';
 
 import { fontFamily } from '@/config/fonts';
-import { Modal } from '../components';
-import { DataManager } from '@/components/data-manager/DataManager';
-import { CategoryManager } from '@/components/data-manager/CategoryManager';
 import { ResumeDataManager } from '@/components/data-manager/ResumeDataManager';
 import { LayoutChrome } from '@/components/layout/LayoutChrome';
-import { CollectionType, WorkData } from '@/interfaces';
-import { fetchDataFromAPI } from '@/utils/functions';
-import { fetchDrawingsCategory, fetchNavbarCategories } from '@/lib/contentful';
 import { fetchResumeData } from '@/lib/contentful-resume';
 
 import './globals.css';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://art.emmchier.com';
-
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://emmchier.com';
 const metaImageUrl = `${siteUrl}/assets/emmchier-metatag.png`;
 
 const SITE_TEXTS = {
   en: {
-    title: 'Emmanuel Chierchié | Illustrator & Digital Artist',
+    title: 'Emmanuel Chierchié — Illustrator, UX Designer & Developer',
     description:
-      'Digital art portfolio of Emmanuel Chierchié (@emmchier) — original drawings, paintings, characters, books and sketchbooks.',
+      'Hub of Emmanuel Chierchié (@emmchier) — illustrator, UX/UI designer and UI developer. Explore his art portfolio and design portfolio.',
     keywords: [
       'Emmanuel Chierchié',
       'emmchier',
       'illustrator',
+      'UX designer',
+      'UI developer',
       'digital art',
-      'drawings',
-      'paintings',
-      'characters',
       'portfolio',
-      'art',
-      'sketchbook',
+      'contact',
     ],
     locale: 'en_US',
   },
   es: {
-    title: 'Emmanuel Chierchié | Ilustrador & Artista Digital',
+    title: 'Emmanuel Chierchié — Ilustrador, Diseñador UX & Desarrollador',
     description:
-      'Portfolio de arte digital de Emmanuel Chierchié (@emmchier) — dibujos, pinturas, personajes, libros e ilustraciones originales.',
+      'Hub de Emmanuel Chierchié (@emmchier) — ilustrador, diseñador UX/UI y desarrollador UI. Explorá su portfolio de arte y diseño.',
     keywords: [
       'Emmanuel Chierchié',
       'emmchier',
       'ilustrador',
+      'diseñador UX',
+      'desarrollador UI',
       'arte digital',
-      'dibujos',
-      'pinturas',
-      'personajes',
       'portfolio',
-      'arte',
-      'sketchbook',
+      'contacto',
     ],
     locale: 'es_AR',
   },
@@ -68,9 +56,9 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: t.keywords,
     metadataBase: new URL(siteUrl),
     icons: {
-      icon: '/assets/favicon-art.svg',
-      shortcut: '/assets/favicon-art.svg',
-      apple: '/assets/favicon-art.svg',
+      icon: '/assets/favicon-hub.svg',
+      shortcut: '/assets/favicon-hub.svg',
+      apple: '/assets/favicon-hub.svg',
     },
     openGraph: {
       title: t.title,
@@ -79,14 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Emmanuel Chierchié',
       type: 'website',
       locale: t.locale,
-      images: [
-        {
-          url: metaImageUrl,
-          width: 1630,
-          height: 916,
-          alt: t.title,
-        },
-      ],
+      images: [{ url: metaImageUrl, width: 1630, height: 916, alt: t.title }],
     },
     twitter: {
       card: 'summary_large_image',
@@ -96,30 +77,15 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.description,
       images: [metaImageUrl],
     },
-    alternates: {
-      canonical: siteUrl,
-    },
+    alternates: { canonical: siteUrl },
   };
 }
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  // All SSR fetches run in parallel — resume space is independent of art space
-  const [collection, drawingsCategory, navbarCollections, resumeData] =
-    await Promise.all([
-      fetchDataFromAPI(CollectionType.DRAWINGS).then(
-        (res) =>
-          res ?? ({ name: 'Drawings', slug: 'drawings', items: [] } as WorkData)
-      ),
-      fetchDrawingsCategory(),
-      fetchNavbarCategories(),
-      fetchResumeData(),
-    ]);
+}: Readonly<{ children: React.ReactNode }>) {
+  const resumeData = await fetchResumeData();
 
-  // JSON-LD structured data — Person + WebSite schemas
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -129,7 +95,7 @@ export default async function RootLayout({
         name: 'Emmanuel Chierchié',
         alternateName: 'emmchier',
         url: siteUrl,
-        image: `${siteUrl}/assets/emmchier-metatag.png`,
+        image: metaImageUrl,
         sameAs: [
           'https://www.instagram.com/emmchier',
           'https://www.linkedin.com/in/emmchier',
@@ -138,27 +104,20 @@ export default async function RootLayout({
           'https://github.com/emmchier',
           'https://x.com/emmchier',
           'https://medium.com/@emmchier',
+          'https://art.emmchier.com',
         ],
-        jobTitle: 'Illustrator & Digital Artist',
+        jobTitle: 'Illustrator, UX Designer & UI Developer',
         description:
-          'Digital art portfolio — original drawings, paintings, characters, books and sketchbooks.',
+          'Illustrator, UX/UI designer and UI developer based in Argentina.',
       },
       {
         '@type': 'WebSite',
         '@id': `${siteUrl}/#website`,
         url: siteUrl,
-        name: 'Emmanuel Chierchié — Illustrator & Digital Artist',
-        description: 'Digital art portfolio of Emmanuel Chierchié (@emmchier).',
+        name: 'Emmanuel Chierchié',
+        description: 'Hub of Emmanuel Chierchié (@emmchier).',
         author: { '@id': `${siteUrl}/#person` },
         inLanguage: ['en-US', 'es-AR'],
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: {
-            '@type': 'EntryPoint',
-            urlTemplate: `${siteUrl}/{search_term_string}`,
-          },
-          'query-input': 'required name=search_term_string',
-        },
       },
     ],
   };
@@ -170,32 +129,11 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google Tag Manager */}
-        <Script
-          id="gtm"
-          strategy="afterInteractive"
-        >{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-P5KL5JZM');`}</Script>
-        {/* End Google Tag Manager */}
       </head>
       <body className={`${fontFamily.className} antialiased`}>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-P5KL5JZM"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
         <main role="main" className="flex flex-col min-h-screen">
-          <DataManager data={collection} />
-          <CategoryManager currentCategory={drawingsCategory} />
           <ResumeDataManager data={resumeData} />
-          <Modal />
-          <LayoutChrome navbarCollections={navbarCollections}>
-            {children}
-          </LayoutChrome>
+          <LayoutChrome>{children}</LayoutChrome>
         </main>
       </body>
     </html>

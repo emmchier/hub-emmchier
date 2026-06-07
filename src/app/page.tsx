@@ -1,5 +1,1 @@
-import { HomeClient } from './HomeClient';
-
-export default async function HomePage() {
-  return <HomeClient />;
-}
+export { default } from './HubHomePage';

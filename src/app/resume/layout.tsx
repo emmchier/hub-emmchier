@@ -7,12 +7,12 @@ const ogImageUrl = `${siteUrl}/api/og-resume`;
 
 const TEXTS = {
   en: {
-    title: 'Contact & Resumé | Emmanuel Chierchié',
+    title: 'Resumé | Emmanuel Chierchié',
     description:
       'Illustrator, UX/UI designer and UI developer. ATS CV available for download.',
   },
   es: {
-    title: 'Contacto y CV | Emmanuel Chierchié',
+    title: 'Currículum | Emmanuel Chierchié',
     description:
       'Ilustrador, diseñador UX/UI y desarrollador UI. CV en formato ATS disponible para descargar.',
   },
@@ -68,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ContactLayout({
+export default function ResumeLayout({
   children,
 }: Readonly<{
   children: ReactNode;

@@ -12,6 +12,7 @@ import {
 import {
   Button,
   DownloadIcon,
+  Header,
   MoreVerticalIcon,
   Tab,
   TabItem,
@@ -316,6 +317,11 @@ export default function HubHomePage() {
   return (
     <>
       <div className="relative flex w-full flex-col">
+        {/* ── Wave header — "art. / emmchier." with neon entrance animation ── */}
+        <div className="relative w-full px-[8px] md:px-0 pt-[24px] md:pt-[32px] pb-[8px] md:pb-0">
+          <Header />
+        </div>
+
         <Tab
           className="w-full"
           contactMobileTabsRight

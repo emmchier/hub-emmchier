@@ -44,7 +44,7 @@ export const RoleCard = ({
         if (isDisabled) event.preventDefault();
       }}
       className={[
-        'group relative block w-full border border-[#21516B]',
+        'group relative block w-full border border-[#21516B] overflow-hidden',
         'h-auto md:h-[70vh]',
         'transition-colors duration-300',
         'p-[16px] md:p-[24px]',
@@ -83,7 +83,7 @@ export const RoleCard = ({
         {/* Big outline title */}
         <div className="min-h-0 flex flex-col mt-[16px] md:h-[30%] justify-start md:justify-center">
           <span
-            className="block font-bold leading-[0.8] tracking-[-0.02em] text-[clamp(4.5rem,19.5vw,20rem)] md:text-[clamp(2.25rem,9.75vw,20rem)]"
+            className="block font-bold leading-[0.8] tracking-[-0.02em] text-[clamp(4.5rem,19.5vw,20rem)] md:text-[clamp(2.5rem,6.5vw,9rem)]"
             style={{
               color: 'transparent',
               WebkitTextFillColor: 'transparent',

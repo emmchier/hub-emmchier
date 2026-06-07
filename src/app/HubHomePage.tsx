@@ -357,7 +357,7 @@ export default function HubHomePage() {
               if (pathname !== '/') router.replace('/');
             }
           }}
-          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 border-b border-[#2F506B] md:border-b-0 min-h-[72px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
+          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 md:border-b md:border-[#2F506B] min-h-[72px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
           sideContent={
             <div className="relative z-10 flex w-full items-center overflow-visible px-[16px] md:z-auto md:px-[16px]">
               <div className="flex w-full flex-row items-center gap-2 overflow-visible">
@@ -391,9 +391,9 @@ export default function HubHomePage() {
             <div className="relative pb-[72px] md:pb-4">
               <div className="md:px-[16px]">
                 {/* 3-column layout: intro | art card | design card */}
-                <div className="flex flex-col md:flex-row md:gap-[8px] pt-4 md:pt-[32px] px-4 md:px-0 gap-4 pb-4 md:pb-0">
+                <div className="flex flex-col md:flex-row md:items-start md:gap-[8px] pt-[24px] px-4 md:px-0 gap-4 pb-4 md:pb-0">
                   {/* Col 1 — Intro (33.33%) */}
-                  <div className="w-full md:w-1/3 flex flex-col justify-start md:justify-center gap-3 md:pr-[16px]">
+                  <div className="w-full md:w-1/3 flex flex-col justify-start gap-3 md:pr-[16px]">
                     <Text
                       type="title"
                       size="m"

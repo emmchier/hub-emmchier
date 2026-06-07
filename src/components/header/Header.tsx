@@ -77,7 +77,7 @@ export const Header = ({ className }: HeaderProps) => {
         }}
       >
         <span
-          className="text-[clamp(4.5rem,16vw,15.5rem)] leading-[0.8] whitespace-nowrap"
+          className="text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.8] whitespace-nowrap"
           style={{
             background:
               'linear-gradient(90deg, #0f2a39 0%, #173b4f 18%, #1d536e 46%, #569cc322 50%, #1d536e 54%, #173b4f 82%, #0f2a39 100%)',
@@ -95,7 +95,7 @@ export const Header = ({ className }: HeaderProps) => {
 
       {/* Animated letters */}
       <div className={`${layoutClasses} relative z-0`}>
-        <span className="text-[clamp(4.5rem,16vw,15.5rem)] leading-[0.8] whitespace-nowrap">
+        <span className="text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.8] whitespace-nowrap">
           {/* "emmchier." — letters start at index 0 */}
           <GlowText text="emmchier." startIndex={0} animate={animate} />
         </span>

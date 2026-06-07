@@ -25,9 +25,9 @@ export default function LegalsPage() {
   const content = legalsContent[language] as LegalsData;
 
   return (
-    <div className="min-h-screen bg-primary-background pt-16 px-[8px] pb-8">
+    <div className="min-h-screen bg-primary-background px-[8px] pb-8">
       <div className="max-w-6xl mx-auto">
-        <div className="w-full flex justify-center px-[16px] md:px-[40px] pt-[16px] md:pt-[40px] pb-[72px]">
+        <div className="w-full flex justify-center px-[16px] md:px-[40px] pt-[24px] pb-[72px]">
           <div className="w-full max-w-2xl mx-auto space-y-8 content-list">
             {/* Back button */}
             <div className="mb-[48px]">

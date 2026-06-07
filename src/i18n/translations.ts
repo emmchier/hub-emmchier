@@ -48,6 +48,7 @@ export const translations = {
     sites: 'Sites.',
     download: 'Download resumé',
     share: 'Share',
+    comingSoon: 'Coming Soon',
 
     // Sites tab
     sitesIntroTitle:
@@ -100,6 +101,7 @@ export const translations = {
     sites: 'Sitios.',
     download: 'Descargar currículum',
     share: 'Compartir',
+    comingSoon: 'Pronto',
 
     // Sites tab
     sitesIntroTitle:

@@ -12,6 +12,7 @@ interface RoleCardProps {
   link?: string;
   state?: 'enabled' | 'disabled';
   ariaLabel: string;
+  comingSoonLabel?: string;
 }
 
 export const RoleCard = ({
@@ -22,6 +23,7 @@ export const RoleCard = ({
   link,
   state = 'enabled',
   ariaLabel,
+  comingSoonLabel = 'Coming Soon',
 }: RoleCardProps) => {
   const { breakpoint } = useBreakpoint();
   const isDesktop = breakpoint !== 'mobile';
@@ -60,7 +62,7 @@ export const RoleCard = ({
         <div className="flex items-start justify-between">
           {isDisabled ? (
             <div className="inline-flex items-center justify-center border border-[#FFC642] text-[#FFC642] bg-[#4A463C] px-[12px] h-[32px] text-[16px]">
-              Coming Soon
+              {comingSoonLabel}
             </div>
           ) : (
             <Text

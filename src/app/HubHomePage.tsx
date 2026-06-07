@@ -461,6 +461,7 @@ export default function HubHomePage() {
                         link="#"
                         description={t.sitesDesignDescription}
                         state="disabled"
+                        comingSoonLabel={t.comingSoon}
                       />
                     </FadeInCard>
                   </div>

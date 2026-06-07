@@ -1,0 +1,40 @@
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "(lsof -ti tcp:3000 | xargs kill -9 2>/dev/null || true) && rm -rf .next",
+    "dev": "WATCHPACK_POLLING=true next dev --hostname localhost --port 3000",
+    "dev:https": "WATCHPACK_POLLING=true next dev --hostname localhost --port 3000 --experimental-https",
+    "dev:clean": "rm -rf .next && (lsof -ti tcp:3000 | xargs kill -9 2>/dev/null || true) && WATCHPACK_POLLING=true next dev --hostname localhost --port 3000",
+    "dev:turbo": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -rf .next"
+  },
+  "dependencies": {
+    "acuarela-ds": "^1.5.4",
+    "contentful": "^11.10.3",
+    "jspdf": "^4.2.1",
+    "next": "^15.5.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.0.14",
+    "@types/node": "^24.3.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "^15.5.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4",
+    "typescript": "^5.9.2"
+  }
+}

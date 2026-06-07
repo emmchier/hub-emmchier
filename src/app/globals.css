@@ -1,0 +1,785 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+.soft {
+  transition-property: all;
+  transition-timing-function: var(
+    --tw-ease,
+    var(--default-transition-timing-function) /* cubic-bezier(0.4, 0, 0.2, 1) */
+  );
+  transition-duration: var(
+    --tw-duration,
+    var(--default-transition-duration) /* 150ms */
+  );
+}
+
+.font-chakra {
+  font-family:
+    'Chakra Petch',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/*
+ * Shimmer neon scan-line — más elegante que el shimmer plano anterior.
+ * Los bordes (#0f2a39) son ligeramente más oscuros que el bg (#112f40)
+ * para dar profundidad. El pico (#1d536e + toque de #569cc3) crea una
+ * línea de escaneo sutil con el color neon del design system.
+ */
+.skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    #0f2a39 0%,
+    #173b4f 18%,
+    #1d536e 46%,
+    #569cc322 50%,
+    #1d536e 54%,
+    #173b4f 82%,
+    #0f2a39 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 2.2s ease-in-out infinite;
+}
+
+/* ─── Entrance animations ──────────────────────────────────────────────────── */
+
+/*
+ * Wave-letter-in: cada letra sube y al pasar la ola destella su --glow-color
+ * con efecto neon (text-shadow). El glow desaparece al asentarse la letra.
+ */
+@keyframes wave-letter-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    color: rgba(27, 70, 95, 0.7);
+    text-shadow: none;
+  }
+  38% {
+    opacity: 1;
+    transform: translateY(-2px);
+    color: var(--glow-color);
+    text-shadow:
+      0 0 5px var(--glow-color),
+      0 0 18px var(--glow-color),
+      0 0 38px var(--glow-color);
+  }
+  62% {
+    opacity: 1;
+    transform: translateY(1px);
+    color: var(--glow-color);
+    text-shadow:
+      0 0 4px var(--glow-color),
+      0 0 12px var(--glow-color);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    color: rgba(27, 70, 95, 0.7);
+    text-shadow: none;
+  }
+}
+
+/*
+ * Neon interference glitch: la letra parece descompuesta con neon encendido.
+ * Cicla entre: neon estable → chispazo (white flash) → apagón → split cromático
+ * → interferencia → chispazo → estable. Loop infinito mientras el cursor está.
+ *
+ * text-shadow capas:
+ *   • Glow neon: blur grande, color propio
+ *   • Chrispa: color: white + shadow blanco super amplio
+ *   • Split: copias offset horizontales (aberración cromática)
+ *   • Apagón: opacidad muy baja
+ */
+@keyframes letter-neon-glitch {
+  /* Neon base — contenido, una sola capa de halo */
+  0% {
+    animation-timing-function: steps(1);
+    color: var(--glow-color);
+    text-shadow:
+      0 0 4px var(--glow-color),
+      0 0 12px color-mix(in srgb, var(--glow-color) 60%, transparent);
+    filter: brightness(1);
+  }
+  /* Chispazo 1 — destello corto, sin overload */
+  10% {
+    animation-timing-function: steps(1);
+    color: color-mix(in srgb, var(--glow-color) 85%, white);
+    text-shadow:
+      1px 0 0 color-mix(in srgb, var(--glow-color) 70%, transparent),
+      -1px 0 0 color-mix(in srgb, var(--glow-color) 70%, transparent),
+      0 0 6px color-mix(in srgb, var(--glow-color) 80%, white),
+      0 0 16px var(--glow-color);
+    filter: brightness(1.6);
+  }
+  /* Flicker bajo */
+  18% {
+    animation-timing-function: steps(1);
+    color: color-mix(in srgb, var(--glow-color) 50%, transparent);
+    text-shadow: 0 0 3px color-mix(in srgb, var(--glow-color) 35%, transparent);
+    filter: brightness(0.55);
+  }
+  /* Split cromático — aberración leve */
+  28% {
+    animation-timing-function: steps(1);
+    color: var(--glow-color);
+    text-shadow:
+      2px 0 0 color-mix(in srgb, var(--glow-color) 65%, transparent),
+      -2px 0 0 color-mix(in srgb, var(--glow-color) 45%, transparent),
+      0 0 5px var(--glow-color),
+      0 0 14px color-mix(in srgb, var(--glow-color) 50%, transparent);
+    filter: brightness(1.15) hue-rotate(8deg);
+  }
+  /* Apagado parcial */
+  38% {
+    animation-timing-function: steps(1);
+    color: color-mix(in srgb, var(--glow-color) 45%, transparent);
+    text-shadow: 0 0 2px color-mix(in srgb, var(--glow-color) 40%, transparent);
+    filter: brightness(0.5);
+  }
+  /* Neon con interferencia — centrado */
+  48% {
+    animation-timing-function: steps(1);
+    color: var(--glow-color);
+    text-shadow:
+      3px 0 0 color-mix(in srgb, var(--glow-color) 50%, transparent),
+      -3px 0 0 color-mix(in srgb, var(--glow-color) 50%, transparent),
+      0 0 5px var(--glow-color),
+      0 0 14px color-mix(in srgb, var(--glow-color) 55%, transparent);
+    filter: brightness(1.1) hue-rotate(-6deg);
+  }
+  /* Chispazo 2 — el más notorio */
+  60% {
+    animation-timing-function: steps(1);
+    color: color-mix(in srgb, var(--glow-color) 90%, white);
+    text-shadow:
+      -1px 0 0 color-mix(in srgb, var(--glow-color) 75%, transparent),
+      1px 0 0 color-mix(in srgb, var(--glow-color) 75%, transparent),
+      0 0 8px color-mix(in srgb, var(--glow-color) 80%, white),
+      0 0 20px var(--glow-color);
+    filter: brightness(1.8);
+  }
+  /* Corte breve */
+  67% {
+    animation-timing-function: steps(1);
+    color: color-mix(in srgb, var(--glow-color) 30%, transparent);
+    text-shadow: none;
+    filter: brightness(0.4);
+  }
+  /* Interferencia banda ancha */
+  76% {
+    animation-timing-function: steps(1);
+    color: var(--glow-color);
+    text-shadow:
+      3px 0 0 color-mix(in srgb, var(--glow-color) 55%, transparent),
+      -3px 0 0 color-mix(in srgb, var(--glow-color) 40%, transparent),
+      0 0 4px var(--glow-color),
+      0 0 12px color-mix(in srgb, var(--glow-color) 45%, transparent);
+    filter: brightness(1.05) saturate(1.3);
+  }
+  /* Estabilización */
+  88% {
+    animation-timing-function: linear;
+    color: var(--glow-color);
+    text-shadow:
+      0 0 4px var(--glow-color),
+      0 0 14px color-mix(in srgb, var(--glow-color) 65%, transparent);
+    filter: brightness(1.1);
+  }
+  /* Neon base — listo para el siguiente ciclo */
+  100% {
+    color: var(--glow-color);
+    text-shadow:
+      0 0 4px var(--glow-color),
+      0 0 12px color-mix(in srgb, var(--glow-color) 60%, transparent);
+    filter: brightness(1);
+  }
+}
+
+/* Fade-up: sidebar items, tab labels, project title/description */
+@keyframes entrance-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Color flash overlay: plays on initial gallery load using the image's background color */
+@keyframes image-color-flash {
+  0% {
+    opacity: 0.75;
+  }
+  35% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Fade-right: navbar categories (vienen desde la izquierda) */
+@keyframes entrance-fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mirrors entrance-fade-right — nav button derecho entra desde la derecha */
+@keyframes entrance-fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*
+ * Modal image reveal: overlay opaco que desaparece sobre la imagen cuando
+ * el lightbox abre, logrando un fade elegante de la foto.
+ */
+@keyframes modal-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Avatar (emmchier): giro completo en cada cambio de tab */
+@keyframes avatar-tab-coin-spin {
+  from {
+    transform: translateZ(0) rotateY(0deg);
+  }
+  to {
+    transform: translateZ(0) rotateY(360deg);
+  }
+}
+
+.avatar-tab-coin-spin {
+  animation: avatar-tab-coin-spin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  -webkit-animation: avatar-tab-coin-spin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)
+    both;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Language pixel-transition blocks */
+@keyframes pixel-in {
+  from {
+    transform: scale(0);
+    border-radius: 8px;
+  }
+  80% {
+    border-radius: 2px;
+  }
+  to {
+    transform: scale(1);
+    border-radius: 0px;
+  }
+}
+
+@keyframes pixel-out {
+  from {
+    transform: scale(1);
+    border-radius: 0px;
+  }
+  20% {
+    border-radius: 2px;
+  }
+  to {
+    transform: scale(0);
+    border-radius: 8px;
+  }
+}
+
+@theme inline {
+  /* Colors */
+
+  /* Background */
+  --color-primary-background: #112f40;
+  --color-primary-background-hover: #173b4f;
+  --color-secondary-background: #173b4f;
+  --color-secondary-background-hover: #224e67;
+  --color-red-background: #b32316;
+
+  /* Text */
+  --color-primary-text: #569cc3;
+  --color-primary-text-hover: #437b9a;
+  --color-secondary-text: #112f40;
+  --color-activated-text: #f6d4c2;
+  --color-activated-text-hover: #e6bda8;
+  --color-selected-text: #e5e5e5;
+  --color-gray: #e5e5e5;
+  --color-indigo-100: #1c4c67;
+  --color-indigo-200: #15384b;
+  --color-blue-100: #74bde8;
+  --color-blue-200: #55a7d8;
+  --color-green-100: #67cfcb;
+  --color-green-200: #4eb1ad;
+
+  /* Fonts */
+
+  /* Title XXL */
+  --text-title-desk-XXL: 5.4rem; /* 86.4px */
+  --text-title-desk-XXL--line-height: 0.9; /* Aproximadamente 103.7px */
+  --text-title-tablet-XXL: 4.8rem; /* 76.8px */
+  --text-title-tablet-XXL--line-height: 1.2; /* Aproximadamente 92.2px */
+  --text-title-mobile-XXL: 3.5rem; /* 56px */
+  --text-title-mobile-XXL--line-height: 1.2; /* Aproximadamente 67.2px */
+
+  /* Title XL */
+  --text-title-desk-XL: 3rem; /* 48px */
+  --text-title-desk-XL--line-height: 1.3; /* Aproximadamente 62.4px */
+  --text-title-tablet-XL: 2.5rem; /* 40px */
+  --text-title-tablet-XL--line-height: 1.3; /* Aproximadamente 52px */
+  --text-title-mobile-XL: 2rem; /* 32px */
+  --text-title-mobile-XL--line-height: 1.3; /* Aproximadamente 41.6px */
+
+  /* Title L */
+  --text-title-desk-L: 2rem; /* 32px */
+  --text-title-desk-L--line-height: 1.4; /* Aproximadamente 44.8px */
+  --text-title-tablet-L: 1.75rem; /* 28px */
+  --text-title-tablet-L--line-height: 1.4; /* Aproximadamente 39.2px */
+  --text-title-mobile-L: 1.25rem; /* 20px */
+  --text-title-mobile-L--line-height: 1.4; /* Aproximadamente 28px */
+
+  /* Title M */
+  --text-title-desk-M: 1.75rem; /* 28px */
+  --text-title-desk-M--line-height: 1.4; /* Aproximadamente 39.2px */
+  --text-title-tablet-M: 1.5rem; /* 24px */
+  --text-title-tablet-M--line-height: 1.4; /* Aproximadamente 33.6px */
+  --text-title-mobile-M: 1.125rem; /* 18px */
+  --text-title-mobile-M--line-height: 1.4; /* Aproximadamente 25.2px */
+
+  /* Title S */
+  --text-title-desk-S: 1.5rem; /* 24px */
+  --text-title-desk-S--line-height: 1.5; /* Aproximadamente 36px */
+  --text-title-tablet-S: 1.25rem; /* 20px */
+  --text-title-tablet-S--line-height: 1.5; /* Aproximadamente 30px */
+  --text-title-mobile-S: 1rem; /* 16px */
+  --text-title-mobile-S--line-height: 1.5; /* Aproximadamente 24px */
+
+  /* Body L */
+  --text-body-desk-L: 1.25rem; /* 20px */
+  --text-body-desk-L--line-height: 1.6; /* Aproximadamente 32px */
+  --text-body-tablet-L: 1.125rem; /* 18px */
+  --text-body-tablet-L--line-height: 1.6; /* Aproximadamente 28.8px */
+  --text-body-mobile-L: 1rem; /* 16px */
+  --text-body-mobile-L--line-height: 1.6; /* Aproximadamente 25.6px */
+
+  /* Body M */
+  --text-body-desk-M: 1rem; /* 16px */
+  --text-body-desk-M--line-height: 1.6; /* Aproximadamente 25.6px */
+  --text-body-tablet-M: 0.875rem; /* 14px */
+  --text-body-tablet-M--line-height: 1.6; /* Aproximadamente 22.4px */
+  --text-body-mobile-M: 0.875rem; /* 8px */
+  --text-body-mobile-M--line-height: 1.6; /* Aproximadamente 12.8px */
+
+  /* Body S */
+  --text-body-desk-S: 0.875rem; /* 14px */
+  --text-body-desk-S--line-height: 1.6; /* Aproximadamente 22.4px */
+  --text-body-tablet-S: 1rem; /* 8px */
+  --text-body-tablet-S--line-height: 1.6; /* Aproximadamente 12.8px */
+  --text-body-mobile-S: 1rem; /* 8px */
+  --text-body-mobile-S--line-height: 1.6; /* Aproximadamente 12.8px */
+}
+
+body {
+  background: var(--color-primary-background);
+  color: var(--color-primary-text);
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+:root,
+html {
+  font-size: 16px;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  :root,
+  html {
+    font-size: 18px !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background: var(--color-primary-background);
+  overscroll-behavior: auto;
+  overscroll-behavior-y: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    /* Prevenir bounce effect en desktop */
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
+  }
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.bg-red {
+  background: red;
+}
+
+.small {
+  height: 10px;
+}
+
+/* Universal Styles */
+* {
+  /* transition: all 0.3s ease-in-out; */
+  text-decoration: none;
+  list-style: none;
+  font-style: normal;
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+  list-style: none;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+/* List Styles - Only for content areas (Making Of and Legals) */
+.content-list ul {
+  list-style-type: disc !important;
+  padding-left: 2rem !important; /* pl-8 equivalent */
+  padding-bottom: 1rem !important; /* 16px */
+  margin: 0;
+}
+
+.content-list ol {
+  list-style-type: decimal !important;
+  padding-left: 2rem !important; /* pl-8 equivalent */
+  padding-bottom: 1rem !important; /* 16px */
+  margin: 0;
+}
+
+.content-list li {
+  display: list-item !important;
+  list-style-type: inherit !important;
+  padding: 0;
+  margin: 0;
+}
+
+/*
+ * El reset universal (* { font-style: normal; text-decoration: none }) anula
+ * cursiva en <em> y decoración en enlaces. En bloques de contenido (Making of,
+ * legales) restauramos lo que viene del Rich Text.
+ */
+.content-list em,
+.content-list i,
+.content-list cite {
+  font-style: italic !important;
+}
+
+.content-list u,
+.content-list ins {
+  text-decoration: underline !important;
+  text-underline-offset: 0.12em;
+}
+
+.content-list a {
+  text-decoration: underline !important;
+  text-underline-offset: 0.12em;
+}
+
+/* Selection Styles */
+::-moz-selection {
+  color: #0e1017;
+  background: #f6d4c2;
+}
+
+::selection {
+  color: #0e1017;
+  background: #f6d4c2;
+}
+
+/* Ocultar scrollbar cross-browser */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Scrollbar visible para el grid de thumbnails del modal en desktop */
+.modal-thumb-scroll {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #569cc3 transparent;
+}
+
+.modal-thumb-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-thumb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-thumb-scroll::-webkit-scrollbar-thumb {
+  background: #569cc3;
+  border-radius: 3px;
+}
+
+.modal-thumb-scroll::-webkit-scrollbar-thumb:hover {
+  background: #74bde8;
+}
+
+/* En mobile (≤768px), ocultar ambas barras visualmente */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+/* Animation */
+.fade-out {
+  animation-name: fadeOut;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+/* ── Header letter glow ───────────────────────────────────────────────────────
+   .glow-letter      — base: color base, pointer-events auto.
+   .glow-letter.glow-wave — animación de entrada vía CLASE (no inline style)
+                            para que :hover pueda sobreescribirla. El inline
+                            solo lleva --glow-color y --wave-delay.
+   :hover            — pixel-glitch burst. Funciona porque .glow-wave:hover
+                       tiene mayor especificidad que .glow-wave solo.
+   ─────────────────────────────────────────────────────────────────────────── */
+.glow-letter {
+  display: inline-block;
+  color: rgba(27, 70, 95, 0.7);
+  pointer-events: auto;
+}
+
+/* Entrance wave — applied via className, NOT inline style */
+.glow-letter.glow-wave {
+  animation: wave-letter-in 410ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--wave-delay, 0ms);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-letter {
+    cursor: default;
+    /* Mouse leave: neon (color + text-shadow + filter) se apaga lento */
+    transition:
+      color 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+      text-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+      filter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  }
+
+  /* :hover sobreescribe .glow-wave (mayor especificidad).
+     steps(1) por segmento → cortes abruptos entre frames, sin interpolación.
+     Infinite → ciclo vivo mientras el cursor está encima. */
+  .glow-letter:hover,
+  .glow-letter.glow-wave:hover {
+    animation: letter-neon-glitch 900ms steps(1, end) infinite;
+    color: var(--glow-color);
+    transition: none;
+  }
+}
+
+/* ── Pixel transition: glitch burst ──────────────────────────────────────────
+   Runs once around the peak-coverage moment as a stepped filter + shadow
+   animation. steps(6) gives 6 discrete "frames" of digital corruption.
+   Uses only box-shadow and filter so it does not conflict with the
+   transform: scale() animations already running on each pixel cell.
+   ─────────────────────────────────────────────────────────────────────────── */
+@keyframes pixel-glitch {
+  0% {
+    box-shadow: none;
+    filter: none;
+  }
+  16% {
+    box-shadow:
+      5px 0 0 #74bde890,
+      -5px 0 0 #f6d4c290;
+    filter: brightness(1.7) saturate(2);
+  }
+  33% {
+    box-shadow: none;
+    filter: brightness(0.55) hue-rotate(25deg);
+  }
+  50% {
+    box-shadow:
+      -4px 0 0 #67cfcb85,
+      4px 0 0 #74bde875;
+    filter: brightness(1.4) saturate(1.5);
+  }
+  66% {
+    box-shadow:
+      3px 0 0 #f6d4c268,
+      -3px 0 0 #67cfcb60;
+    filter: saturate(0.2) brightness(0.8);
+  }
+  83% {
+    box-shadow:
+      -2px 0 0 #74bde870,
+      6px 0 0 #f6d4c255;
+    filter: brightness(1.2) hue-rotate(-15deg);
+  }
+  100% {
+    box-shadow: none;
+    filter: none;
+  }
+}
+
+/* ── Gallery image scroll fade-in ─────────────────────────────────────────── */
+/* Text stroke variants */
+.text-stroke-outline {
+  -webkit-text-stroke: 1px currentColor;
+  /*
+   * Match primary page/nav background so it still *looks* hollow on #112f40,
+   * but glyphs are opaque. Transparent fill is skipped by backdrop-filter
+   * sampling (lens would see a flat field with no stroke).
+   */
+  -webkit-text-fill-color: var(--color-primary-background, #112f40);
+}
+
+.text-stroke-solid {
+  -webkit-text-stroke: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Contact cards grid (emmchier) */
+.contact-cards-grid {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'email'
+    'linkedin'
+    'download'
+    'instagram'
+    'github'
+    'behance'
+    'dribbble';
+  /* Mobile: horizontal framing only; vertical spacing comes from grid gap + wrapper */
+  padding: 0 1rem;
+}
+
+.contact-cards-grid.contact-cards-grid--partial {
+  grid-template-areas: none;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(0, auto);
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .contact-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      'email linkedin'
+      'email download'
+      'instagram instagram'
+      'github behance'
+      'dribbble behance';
+    padding: 0;
+  }
+
+  /* Last chunk with fewer than 7 items: same row height for all cards (no email 2-row span). */
+  .contact-cards-grid.contact-cards-grid--partial {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-template-areas: none;
+    align-items: stretch;
+  }
+}
+
+/* InvertedCursor: hide system cursor while the lens is active (desktop / fine pointer). */
+html.inverted-cursor-active,
+html.inverted-cursor-active * {
+  cursor: none !important;
+}

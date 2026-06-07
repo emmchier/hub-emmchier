@@ -1,0 +1,28 @@
+---
+description: Protocolo de release al decir «subamos cambios» (QA + git develop/main)
+alwaysApply: true
+---
+
+# Palabra clave: «subamos cambios»
+
+Cuando el usuario diga **subamos cambios** (o variantes claras: “subamos los cambios”, “subí los cambios a github”), ejecutar **todo** el protocolo siguiente sin pedir confirmación intermedia salvo bloqueo real (credenciales, conflicto no resoluble).
+
+## 1. Diagnóstico y fixes
+
+Antes de git:
+
+1. Revisar el proyecto en busca de bugs, roturas funcionales y regresiones obvias.
+2. Corregir problemas de sintaxis y convenciones (incl. Tailwind inválido o clases rotas).
+3. Ejecutar comprobaciones del repo (como mínimo `npm run lint` y `npm run build` si existe). Si hay warnings/errores de consola atribuibles al código, resolverlos.
+4. Si aparece cualquier problema, **arreglarlo** y repetir hasta poder afirmar con criterio que el estado es OK.
+
+## 2. Git (solo si el diagnóstico da OK)
+
+1. Asegurar cambios commiteados con mensaje claro.
+2. **Push a la rama `develop`** (crear/tracking remoto si hace falta).
+3. Pasar a **`main`**, integrar los mismos cambios desde `develop` (merge o rebase según el flujo del repo) y **push a `main`**.
+
+## Notas
+
+- Si el entorno no tiene red o git write, explicar el bloqueo y dejar comandos o estado listos para cuando el usuario pueda ejecutarlos.
+- No inventar resultados de QA: ejecutar los comandos que el proyecto use.

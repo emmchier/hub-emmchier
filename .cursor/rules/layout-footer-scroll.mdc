@@ -1,0 +1,30 @@
+---
+description: Sticky footer and document scroll — no flex-1 dead space or Tab overflow-y-auto traps
+globs: src/components/layout/**,src/components/ui/footer/**,src/components/ui/tab/**,src/app/**/ProjectPageClient.tsx,src/app/contact/**,src/app/work/**
+alwaysApply: false
+---
+
+# Layout — footer pegado al bottom + scroll del documento
+
+## Never regress
+
+- Short content (Contact Resume / Languages mobile): footer must stay at viewport bottom; no scrollable void above it.
+- Short galleries (few images): no internal Tab scroll; no empty scrollable gallery area.
+
+## Required pattern
+
+- `main`: `flex flex-col min-h-screen`.
+- `LayoutChrome`: page shell `flex flex-1 flex-col min-h-0`; children wrapper **without** `flex-1`.
+- `Footer`: `mt-auto shrink-0` (spacing via `pt-[32px] md:pt-[64px]`).
+- `Tab` `bodyClasses`: `overflow-visible` (project + contact).
+- `WorkLayoutClient`: no `min-h-screen` on root.
+- Contact page/Tab: natural height, no `flex-1 basis-0` chain on mobile.
+
+## Do not
+
+- `flex-1` / `basis-0` on Tab or route wrappers to “fill viewport” when content is document-scrolled.
+- `overflow-y-auto` on Tab body for gallery/contact (creates internal scroll trap).
+- Duplicate `min-h-screen` on work layout when `main` already has it.
+- `min-h-dvh` on `body`/`main` or single-root `LayoutChrome` wrapper (regresión: footer invisible).
+
+Full spec: `CLAUDE.md` §13.1

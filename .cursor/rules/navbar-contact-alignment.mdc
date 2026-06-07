@@ -1,0 +1,32 @@
+---
+description: Navbar mobile contact IconButton must match navbar height (no 1px border misalignment)
+globs: src/components/ui/navbar/**/*
+alwaysApply: false
+---
+
+# Navbar — Contact IconButton alignment (mobile)
+
+When editing `Navbar.tsx` or the navbar skeleton, **never** reintroduce the 1px-short contact column bug.
+
+## Root cause
+
+- `<header>` has `border-b` on mobile (`md:border-b-0` on desktop).
+- An extra `border-b` on the mobile contact wrapper steals 1px from the flex child (`border-box`) → button background is 55px vs navbar 56px.
+
+## Required pattern (mobile `< md`)
+
+1. Header row: `items-stretch` + `min-h-[56px]`.
+2. Contact wrapper: `flex shrink-0 self-stretch md:hidden border-l border-indigo-100` — **no `border-b`** on mobile.
+3. Contact `Button` (icon): `box-border h-full! min-h-[56px]! w-[56px]!` + `icon-24-mobile`.
+4. Skeleton right slot: `h-full min-h-[56px] w-[56px]`, same border rules as live UI.
+
+## Desktop (`md+`)
+
+- Contact text wrapper may use `border-l border-b border-indigo-100`.
+- Button: `min-h-[48px]!` / `min-[1266px]:min-h-[72px]!` to match header tokens.
+
+## Before finishing
+
+- [ ] Mobile contact div has no standalone `border-b` (only header draws bottom edge on mobile).
+- [ ] No `h-[54px]` / `h-[55px]` on contact slot.
+- [ ] Full spec: `CLAUDE.md` §8.5.1

@@ -1,0 +1,204 @@
+{
+  "en": {
+    "title": "Legal Notice",
+    "siteUrl": "art.emmchier.com",
+    "lastUpdated": "Last updated: 02/18/2026",
+    "sections": [
+      {
+        "heading": "1. Site Owner",
+        "paragraphs": [
+          "The website art.emmchier.com is owned by Emmanuel Chierchié (hereinafter, \"the Owner\").",
+          "The purpose of this website is to display original artworks authored by the Owner, including digital illustrations, paintings, sketches, books, and other creative works."
+        ]
+      },
+      {
+        "heading": "2. Intellectual Property",
+        "paragraphs": [
+          "All works published on this website are the exclusive property of the Author and are protected by Argentine Law No. 11,723 on Intellectual Property and applicable international regulations.",
+          "Viewing the content does not imply any assignment or licence of use.",
+          "The following actions are strictly prohibited without the prior, express, and written authorisation of the Owner:"
+        ],
+        "list": [
+          "Reproducing, copying, or downloading the works.",
+          "Modifying, editing, or transforming them.",
+          "Distributing or using them in digital, print, or commercial media.",
+          "Using them for promotional or advertising purposes without authorisation.",
+          "Removing or altering authorship credits.",
+          "Registering, tokenising, or linking the works to NFT systems or similar technologies."
+        ],
+        "paragraphsAfterList": [
+          "Use of the works may be authorised through a licence granted by the Owner, under specific conditions to be previously agreed upon by the parties.",
+          "Any unauthorised use shall constitute an infringement of copyright under Law No. 11,723 and may give rise to the corresponding legal actions."
+        ]
+      },
+      {
+        "heading": "3. Prohibition of Scraping, Data Mining, and AI Use",
+        "paragraphs": [
+          "The following is expressly prohibited:"
+        ],
+        "list": [
+          "Automated scraping of the website's content.",
+          "Mass extraction of images or text.",
+          "Incorporating the content into databases.",
+          "Using the works to train artificial intelligence models.",
+          "Using the material in datasets, machine learning systems, or similar technologies."
+        ],
+        "paragraphsAfterList": [
+          "Access to the website does not authorise any form of automated data collection or derived technological use."
+        ]
+      },
+      {
+        "heading": "4. Use of the Website",
+        "paragraphs": [
+          "Accessing and browsing this website implies acceptance of these terms.",
+          "The user agrees to use the website lawfully and to refrain from any actions that may affect its operation, security, or integrity.",
+          "The Owner may modify the content of the website at any time without prior notice."
+        ]
+      },
+      {
+        "heading": "5. Sharing Content",
+        "paragraphs": [
+          "Users may share official links to this website on social media.",
+          "Downloading, copying, or directly redistributing images is not authorised."
+        ]
+      },
+      {
+        "heading": "6. Cookies and Analytics",
+        "paragraphs": [
+          "This website uses measurement tools through Google Tag Manager (GTM), which may involve the use of technical or analytical cookies.",
+          "These tools allow the collection of general browsing statistics such as:"
+        ],
+        "list": [
+          "Pages visited",
+          "Time spent on the site",
+          "Device type and browser"
+        ],
+        "paragraphsAfterList": [
+          "No personally identifiable data is collected directly.",
+          "Users may configure their browser to reject cookies if they wish."
+        ]
+      },
+      {
+        "heading": "7. Personal Data Protection",
+        "paragraphs": [
+          "This website does not request or store personal data through forms or registration systems.",
+          "If users contact the Owner through external channels (social media or other platforms), such interaction will be governed by the privacy policies of those services."
+        ]
+      },
+      {
+        "heading": "8. Applicable Law and Jurisdiction",
+        "paragraphs": [
+          "These terms are governed by the laws of the Argentine Republic.",
+          "Any dispute shall be submitted to the jurisdiction of the ordinary courts with competence in the Argentine Republic."
+        ]
+      },
+      {
+        "heading": "9. Acceptance",
+        "paragraphs": [
+          "Accessing, browsing, and using this website implies that the user has read and accepted these terms."
+        ]
+      }
+    ]
+  },
+  "es": {
+    "title": "Legales",
+    "siteUrl": "art.emmchier.com",
+    "lastUpdated": "Última actualización: 18/02/2026",
+    "sections": [
+      {
+        "heading": "1. Titular del sitio",
+        "paragraphs": [
+          "El sitio web art.emmchier.com es propiedad de Emmanuel Chierchié (en adelante, \"el Titular\").",
+          "Este sitio tiene como finalidad la exhibición de obras artísticas originales de autoría propia, incluyendo ilustraciones digitales, pinturas, sketches, libros y otros trabajos creativos."
+        ]
+      },
+      {
+        "heading": "2. Propiedad intelectual",
+        "paragraphs": [
+          "Todas las obras publicadas en este sitio son de titularidad exclusiva del Autor y se encuentran protegidas por la Ley 11.723 de Propiedad Intelectual de la República Argentina y normativa internacional aplicable.",
+          "La visualización del contenido no implica cesión ni licencia de uso alguna.",
+          "Queda estrictamente prohibido realizar cualquiera de las siguientes acciones sin autorización previa, expresa y por escrito del Titular:"
+        ],
+        "list": [
+          "Reproducir, copiar o descargar las obras.",
+          "Modificarlas, editarlas o transformarlas.",
+          "Distribuirlas o utilizarlas en medios digitales, impresos o comerciales.",
+          "Utilizarlas con fines promocionales o publicitarios sin autorización.",
+          "Eliminar o alterar créditos de autoría.",
+          "Registrar, tokenizar o vincular las obras a sistemas NFT o similares."
+        ],
+        "paragraphsAfterList": [
+          "El uso de las obras podrá ser autorizado mediante licencia otorgada por el Titular, bajo condiciones específicas que deberán ser previamente acordadas entre las partes.",
+          "Cualquier uso sin autorización constituirá una infracción a los derechos de autor conforme a la Ley 11.723 y podrá dar lugar a las acciones legales correspondientes."
+        ]
+      },
+      {
+        "heading": "3. Prohibición de scraping, minería de datos y uso en IA",
+        "paragraphs": [
+          "Queda expresamente prohibido:"
+        ],
+        "list": [
+          "El scraping automatizado del contenido del sitio.",
+          "La extracción masiva de imágenes o textos.",
+          "La incorporación del contenido en bases de datos.",
+          "El uso de las obras para entrenamiento de modelos de inteligencia artificial.",
+          "La utilización del material en datasets, sistemas de machine learning o tecnologías similares."
+        ],
+        "paragraphsAfterList": [
+          "El acceso al sitio no autoriza ningún tipo de recolección automatizada de datos ni uso tecnológico derivado."
+        ]
+      },
+      {
+        "heading": "4. Uso del sitio",
+        "paragraphs": [
+          "El acceso y navegación por el sitio implican la aceptación de los presentes términos.",
+          "El usuario se compromete a utilizar el sitio de manera lícita y a no realizar acciones que afecten su funcionamiento, seguridad o integridad.",
+          "El Titular podrá modificar el contenido del sitio en cualquier momento sin previo aviso."
+        ]
+      },
+      {
+        "heading": "5. Compartir contenido",
+        "paragraphs": [
+          "El usuario puede compartir enlaces oficiales del sitio en redes sociales.",
+          "No se autoriza la descarga, copia o redistribución directa de las imágenes."
+        ]
+      },
+      {
+        "heading": "6. Cookies y analítica",
+        "paragraphs": [
+          "El sitio utiliza herramientas de medición a través de Google Tag Manager (GTM), que pueden implicar el uso de cookies técnicas o analíticas.",
+          "Estas herramientas permiten obtener estadísticas generales de navegación tales como:"
+        ],
+        "list": [
+          "Páginas visitadas",
+          "Tiempo de permanencia",
+          "Tipo de dispositivo y navegador"
+        ],
+        "paragraphsAfterList": [
+          "No se recolectan datos personales identificables de forma directa.",
+          "El usuario puede configurar su navegador para rechazar cookies si así lo desea."
+        ]
+      },
+      {
+        "heading": "7. Protección de datos personales",
+        "paragraphs": [
+          "Este sitio no solicita ni almacena datos personales mediante formularios ni sistemas de registro.",
+          "En caso de que el usuario se comunique por medios externos (redes sociales u otras plataformas), dicha interacción se regirá por las políticas de privacidad de esos servicios."
+        ]
+      },
+      {
+        "heading": "8. Legislación aplicable y jurisdicción",
+        "paragraphs": [
+          "Los presentes términos se rigen por las leyes de la República Argentina.",
+          "Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios con competencia en la República Argentina."
+        ]
+      },
+      {
+        "heading": "9. Aceptación",
+        "paragraphs": [
+          "El acceso, navegación y uso del sitio implican que el usuario ha leído y aceptado los presentes términos."
+        ]
+      }
+    ]
+  }
+}

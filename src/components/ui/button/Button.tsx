@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, CSSProperties, PointerEventHandler } from 'react';
+import React, { ReactNode, CSSProperties, PointerEventHandler } from 'react';
 import { FCC } from '../../../types/types';
 import { ArrowLeftIcon, ArrowRightIcon } from '../icon/icons';
 
@@ -23,6 +23,8 @@ interface ButtonProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   onPointerDown?: PointerEventHandler<HTMLButtonElement>;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  role?: string;
   /**
    * Enables a directional arrow that slides in on hover (desktop/tablet only,
    * hidden on mobile via `hidden md:inline-flex`).
@@ -56,6 +58,8 @@ export const Button: FCC<ButtonProps> = ({
   onMouseEnter = () => {},
   onMouseLeave = () => {},
   onPointerDown,
+  onKeyDown,
+  role,
   hoverArrow = false,
 }) => {
   const isDisabled = state === 'disabled';
@@ -160,11 +164,13 @@ export const Button: FCC<ButtonProps> = ({
   return (
     <button
       type={type}
+      role={role}
       aria-label={ariaLabel}
       onClick={isDisabled ? undefined : onClick}
       onMouseEnter={isDisabled ? undefined : onMouseEnter}
       onMouseLeave={isDisabled ? undefined : onMouseLeave}
       onPointerDown={onPointerDown}
+      onKeyDown={onKeyDown}
       tabIndex={isDisabled ? -1 : tabIndex}
       aria-disabled={isDisabled}
       className={finalClassName}

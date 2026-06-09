@@ -8,7 +8,7 @@ interface HeaderProps {
   className?: string;
 }
 
-const GLOW_COLORS = ['#f6d4c2', '#74bde8', '#67cfcb'] as const;
+const GLOW_COLORS = ['#74bde8', '#55a7d8', '#67cfcb'] as const;
 
 const WAVE_STAGGER_MS = 27;
 

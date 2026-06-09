@@ -148,7 +148,14 @@ export default async function RootLayout({
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <main role="main" className="flex flex-col min-h-screen">
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
+        </a>
+        <main
+          id="main-content"
+          role="main"
+          className="flex flex-col min-h-screen"
+        >
           <ResumeDataManager data={resumeData} />
           <LayoutChrome>{children}</LayoutChrome>
         </main>

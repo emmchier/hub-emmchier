@@ -1852,3 +1852,204 @@ Los tooltips de los iconos de acción en cada card van con `direction="top"` (pa
 - ✅ URL por sección de Resumé (`/contact/resume/[slug]`) sin re-renders
 
 **Git baseline v1:** el commit de este CLAUDE.md update es el marcador de v1.
+
+---
+
+## 28. Contexto específico — `emmchier.com` (Hub)
+
+> Las secciones 1–27 describen el sistema base heredado de `art.emmchier.com` (stack, design system, componentes, Zustand, Contentful, animaciones). Las secciones 28 en adelante documentan lo específico del Hub.
+
+### 28.1 Propósito del Hub
+
+`emmchier.com` es un **nexo de entrada** al ecosistema de Emmanuel Chierchié. No aloja portfolio propio — su función es presentar al autor y enlazar a:
+
+- **[art.emmchier.com](https://art.emmchier.com)** — portfolio de ilustración y arte digital
+- **[design.emmchier.com](https://design.emmchier.com)** — portfolio UX/UI Designer + UI Developer
+
+La home tiene tres tabs:
+- **Sites** — cards de art y design (navegación a los subdominios)
+- **Contact** — grid de tarjetas de contacto (email, redes)
+- **Resumé** — CV completo con scroll spy + PDF descargable
+
+### 28.2 Sites tab — card de Design habilitada
+
+La card de `design.emmchier.com` estaba en estado `disabled` con badge "Coming Soon". A partir de la versión actual está **habilitada**:
+
+```tsx
+// HubHomePage.tsx — Col 3 — design.emmchier.com
+<RoleCard
+  ariaLabel="Visit design.emmchier.com"
+  url="design.emmchier.com"
+  title="design."
+  colorTitle="#74BDE8"      // Blue — color primario del sitio design
+  link="https://design.emmchier.com"
+  description={t.sitesDesignDescription}
+  state="enabled"           // antes: "disabled"
+  // comingSoonLabel eliminado
+/>
+```
+
+**Reglas:**
+- ❌ No volver a poner `state="disabled"` o `comingSoonLabel` — la card ya es navegable.
+- ✅ `colorTitle="#74BDE8"` — el azul del design site, no el peach original.
+
+### 28.3 Color primario — Blue `#74BDE8`
+
+El color de acento del Hub es el **Blue** `#74BDE8`. Es el mismo que usa `design.emmchier.com` como primary. En el Hub, este blue aparece en:
+- Focus ring (`:focus-visible` en globals.css)
+- Skip to content link
+- Header animation glow (ver §29.2)
+- Card de Design en Sites tab
+
+---
+
+## 29. Accesibilidad — patrones implementados (`emmchier.com`)
+
+> Leer antes de modificar `Tab`, `HubHomePage`, `globals.css` o cualquier componente interactivo del Hub.
+
+### 29.1 Focus ring global — color Blue (`#74BDE8`)
+
+**Archivo:** `src/app/globals.css`
+
+```css
+/* Base — outline transparente con transición en todos los interactivos */
+a, button, [tabindex='0'] {
+  outline: 3px solid transparent;
+  outline-offset: -3px;
+  transition: outline-color 180ms ease;
+}
+
+/* Focus ring — 3px blue (#74BDE8), inset, sin border-radius */
+:focus-visible {
+  outline: 3px solid #74bde8;
+  outline-offset: -3px;
+  border-radius: 0;
+}
+
+:focus:not(:focus-visible) { outline: none; }
+
+/* Clase para botones con contenido superpuesto (card buttons) */
+.card-focus-btn:focus-visible { outline: none; }
+.card-focus-btn:focus-visible::after {
+  content: ''; position: absolute; inset: 0;
+  box-shadow: inset 0 0 0 3px #74bde8;
+  pointer-events: none; z-index: 1;
+}
+```
+
+**Colores por proyecto:**
+
+| Proyecto | Color focus ring | Token |
+|----------|-----------------|-------|
+| art.emmchier.com | `#F6D4C2` | Peach |
+| design.emmchier.com | `#67CFCB` | Green |
+| emmchier.com (Hub) | `#74BDE8` | Blue |
+
+### 29.2 Skip to content link
+
+**Archivo:** `src/app/layout.tsx`
+
+```tsx
+<a href="#main-content" className="skip-to-content">
+  Skip to content
+</a>
+<main id="main-content" role="main" className="flex flex-col min-h-screen">
+```
+
+Visualmente oculto hasta focus. Al recibir focus aparece en esquina superior izquierda con fondo `#112f40` y borde/texto azul `#74BDE8`.
+
+### 29.3 Tab keyboard navigation — `role`, `aria-label`, arrow keys
+
+**Archivo:** `src/components/ui/tab/Tab.tsx`
+
+Igual que en Art y Design, el Tab implementa el patrón WAI-ARIA tablist/tab/tabpanel:
+
+- `uid = useId()` — IDs únicos para el par tab/panel
+- `tabButtonRefs` — permite mover focus programáticamente con arrow keys
+- `handleTabChange(index, moveFocus)` — parámetro `moveFocus` para keyboard nav
+- `handleTabKeyDown` — ArrowLeft/Right/Up/Down, Home, End
+- `<ul role="tablist" aria-label="Content tabs">`
+- `<li role="presentation" ref={...}>` — captura el button hijo para refs
+- `<Button role="tab" tabIndex={0} onKeyDown={handleTabKeyDown}>`
+- `<div role="tabpanel" id={...} aria-labelledby={...}>` en el body
+
+**El Hub tiene 3 tabs: Sites, Contact, Resumé.** El keyboard nav entre ellos sigue el mismo patrón circular: ArrowRight en último tab → primer tab.
+
+### 29.4 `ButtonProps` — extensiones
+
+**Archivo:** `src/components/ui/button/Button.tsx`
+
+```ts
+onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+role?: string;
+```
+
+Pasadas directamente al `<button>` nativo.
+
+### 29.5 Checklist de mantenimiento
+
+- ✅ Todo `<svg>` decorativo → `aria-hidden="true"`
+- ✅ Todo `iconButton` → `ariaLabel` descriptivo
+- ✅ Tab activo → `aria-current="true"` (si aplica en filtros)
+- ✅ Arrow keys en Tab → `handleTabKeyDown` con wrap circular
+- ❌ No usar `role="tab"` fuera de `Tab.tsx`
+- ❌ No usar `div[onClick]` — siempre `<button>` o `<a>`
+- ❌ No usar `disabled` HTML en elementos que deben ser anunciados por AT
+
+---
+
+## 30. Header — animación wave con Blue palette
+
+**Archivo:** `src/components/header/Header.tsx`
+
+```ts
+const GLOW_COLORS = ['#74bde8', '#55a7d8', '#67cfcb'] as const;
+```
+
+El Hub usa una **paleta toda fría** para la animación de letras:
+- `#74bde8` — Blue principal (color index 0, 3, 6, 9, 12 → a, ., e, m, i)
+- `#55a7d8` — Blue medio (índice 1, 4, 7, 10 → r, m, c, e)
+- `#67cfcb` — Teal (índice 2, 5, 8, 11 → t, c, h, r)
+
+**Antes:** `['#f6d4c2', '#74bde8', '#67cfcb']` — peach como color dominante.
+**Ahora:** todo blue/teal, coherente con el primary del Hub.
+
+**Reglas:**
+- ❌ No volver a poner `#f6d4c2` (peach) en Hub — es el color de Art, no del Hub.
+- ✅ Si se agrega un cuarto color de glow, mantener la familia blue/teal.
+- ✅ El comportamiento de la ola (stagger, duración, hover glitch) no cambia — solo los colores.
+
+---
+
+## 31. Legales — `emmchier.com` como Hub
+
+**Archivo:** `src/i18n/legals.json`
+
+La versión anterior de los legales hacía referencia a "art portfolio, design portfolio, CV" como si el Hub alojara ese contenido. El documento fue reescrito (2026-06-09) para reflejar correctamente que el Hub es un nexo:
+
+**Estructura actualizada (10 secciones):**
+
+| # | Sección | Cambio vs. versión anterior |
+|---|---------|----------------------------|
+| 1 | Site Owner | Aclara que el Hub no aloja contenido de portfolio — enlaza a art y design |
+| 2 | Intellectual Property | Refiere a los subdominios para IP de obras; Hub solo protege branding/identidad |
+| 3 | Scraping / AI | Sin cambios de fondo |
+| 4 | External Links | **Nueva sección** — explica responsabilidad limitada sobre subdominios y perfiles externos |
+| 5 | Use of the Website | Antes sección 4 |
+| 6 | Cookies and Analytics | Agrega GTM-P5KL5JZM explícito y link a `policies.google.com/privacy` |
+| 7 | Personal Data | Agrega cláusula de no sharing/venta de datos |
+| 8 | Disclaimer | **Nueva sección** — buena fe, sin garantías de exactitud |
+| 9 | Applicable Law | Antes sección 8 |
+| 10 | Acceptance | Antes sección 9 |
+
+**Cláusula clave §1 (Hub como nexo):**
+> *"This site acts exclusively as a personal hub and entry point... It does not host portfolio content directly — instead, it links to two independent sub-domain sites."*
+
+**Cláusula clave §2 (IP en subdominios):**
+> *"The artistic and design works... are published on their respective sub-domain sites... Please refer to each site's legal notice for the specific terms."*
+
+**Reglas de mantenimiento:**
+- ✅ Actualizar `lastUpdated` en ambos idiomas al modificar
+- ✅ Mantener EN y ES en sincronía
+- ❌ No referenciar "art portfolio" o "design portfolio" como contenido del Hub — el Hub no aloja obras
+- ❌ No agregar secciones sin actualizar ambos idiomas

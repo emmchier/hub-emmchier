@@ -2,33 +2,27 @@
   "en": {
     "title": "Legal Notice",
     "siteUrl": "emmchier.com",
-    "lastUpdated": "Last updated: 02/18/2026",
+    "lastUpdated": "Last updated: 06/09/2026",
     "sections": [
       {
         "heading": "1. Site Owner",
         "paragraphs": [
-          "The website emmchier.com is owned by Emmanuel Chierchié (hereinafter, \"the Owner\").",
-          "This website serves as the central hub of Emmanuel Chierchié — illustrator, UX/UI designer, and UI developer — providing access to his art portfolio, design portfolio, CV, and contact information."
+          "The website emmchier.com (hereinafter, \"the Site\") is owned by Emmanuel Chierchié (hereinafter, \"the Owner\").",
+          "This site acts exclusively as a personal hub and entry point for the Owner's professional and creative work. It does not host portfolio content directly — instead, it links to two independent sub-domain sites: art.emmchier.com (illustration and digital art portfolio) and design.emmchier.com (UX/UI design and development portfolio).",
+          "Each sub-domain site has its own legal notice governing the content published therein."
         ]
       },
       {
         "heading": "2. Intellectual Property",
         "paragraphs": [
-          "All works published on this website are the exclusive property of the Author and are protected by Argentine Law No. 11,723 on Intellectual Property and applicable international regulations.",
-          "Viewing the content does not imply any assignment or licence of use.",
-          "The following actions are strictly prohibited without the prior, express, and written authorisation of the Owner:"
+          "The name, identity, and branding of Emmanuel Chierchié (@emmchier) displayed on this site are the exclusive property of the Owner.",
+          "The artistic and design works referenced or linked from this site are published on their respective sub-domain sites (art.emmchier.com and design.emmchier.com) and are protected under Argentine Law No. 11,723 on Intellectual Property and applicable international regulations. Please refer to each site's legal notice for the specific terms governing those works.",
+          "The following actions are strictly prohibited without prior, express, and written authorisation from the Owner:"
         ],
         "list": [
-          "Reproducing, copying, or downloading the works.",
-          "Modifying, editing, or transforming them.",
-          "Distributing or using them in digital, print, or commercial media.",
-          "Using them for promotional or advertising purposes without authorisation.",
-          "Removing or altering authorship credits.",
-          "Registering, tokenising, or linking the works to NFT systems or similar technologies."
-        ],
-        "paragraphsAfterList": [
-          "Use of the works may be authorised through a licence granted by the Owner, under specific conditions to be previously agreed upon by the parties.",
-          "Any unauthorised use shall constitute an infringement of copyright under Law No. 11,723 and may give rise to the corresponding legal actions."
+          "Reproducing or copying the Owner's identity, branding, or any content linked from this site.",
+          "Using the content for promotional, advertising, or commercial purposes without authorisation.",
+          "Removing or altering authorship credits."
         ]
       },
       {
@@ -38,17 +32,24 @@
         ],
         "list": [
           "Automated scraping of the website's content.",
-          "Mass extraction of images or text.",
+          "Mass extraction of text, links, or metadata.",
           "Incorporating the content into databases.",
-          "Using the works to train artificial intelligence models.",
+          "Using any content linked from or referenced by this site to train artificial intelligence models.",
           "Using the material in datasets, machine learning systems, or similar technologies."
         ],
         "paragraphsAfterList": [
-          "Access to the website does not authorise any form of automated data collection or derived technological use."
+          "Access to this website does not authorise any form of automated data collection or derived technological use."
         ]
       },
       {
-        "heading": "4. Use of the Website",
+        "heading": "4. External Links",
+        "paragraphs": [
+          "This site contains links to the Owner's sub-domain sites (art.emmchier.com and design.emmchier.com) as well as to external professional profiles (LinkedIn, Dribbble, GitHub, Behance, Instagram, X/Twitter, and others).",
+          "The Owner is not responsible for the content, availability, or privacy practices of any external websites. Users access those sites at their own risk and under the terms established by each service."
+        ]
+      },
+      {
+        "heading": "5. Use of the Website",
         "paragraphs": [
           "Accessing and browsing this website implies acceptance of these terms.",
           "The user agrees to use the website lawfully and to refrain from any actions that may affect its operation, security, or integrity.",
@@ -56,44 +57,46 @@
         ]
       },
       {
-        "heading": "5. Sharing Content",
-        "paragraphs": [
-          "Users may share official links to this website on social media.",
-          "Downloading, copying, or directly redistributing images is not authorised."
-        ]
-      },
-      {
         "heading": "6. Cookies and Analytics",
         "paragraphs": [
-          "This website uses measurement tools through Google Tag Manager (GTM), which may involve the use of technical or analytical cookies.",
+          "This website uses measurement tools through Google Tag Manager (GTM-P5KL5JZM), which may involve the use of technical or analytical cookies.",
           "These tools allow the collection of general browsing statistics such as:"
         ],
         "list": [
           "Pages visited",
           "Time spent on the site",
-          "Device type and browser"
+          "Device type and browser",
+          "Country or region (no precise geolocation)"
         ],
         "paragraphsAfterList": [
           "No personally identifiable data is collected directly.",
-          "Users may configure their browser to reject cookies if they wish."
+          "Users may configure their browser to reject cookies or use browser extensions to block tracking. For more information on how Google processes this data, refer to Google's Privacy Policy at policies.google.com/privacy."
         ]
       },
       {
         "heading": "7. Personal Data Protection",
         "paragraphs": [
           "This website does not request or store personal data through forms or registration systems.",
-          "If users contact the Owner through external channels (social media or other platforms), such interaction will be governed by the privacy policies of those services."
+          "If users contact the Owner through external channels (social media, email, or other platforms), such interaction will be governed by the privacy policies of those respective services.",
+          "The Owner commits to not sharing, selling, or disclosing any personal data obtained through external communication channels."
         ]
       },
       {
-        "heading": "8. Applicable Law and Jurisdiction",
+        "heading": "8. Disclaimer",
+        "paragraphs": [
+          "The content of this website is provided in good faith for informational purposes. The Owner does not guarantee the absolute accuracy, completeness, or timeliness of the information presented.",
+          "The Owner shall not be held liable for any direct or indirect damages arising from the use of, or inability to use, this website or the external sites it links to."
+        ]
+      },
+      {
+        "heading": "9. Applicable Law and Jurisdiction",
         "paragraphs": [
           "These terms are governed by the laws of the Argentine Republic.",
           "Any dispute shall be submitted to the jurisdiction of the ordinary courts with competence in the Argentine Republic."
         ]
       },
       {
-        "heading": "9. Acceptance",
+        "heading": "10. Acceptance",
         "paragraphs": [
           "Accessing, browsing, and using this website implies that the user has read and accepted these terms."
         ]
@@ -103,33 +106,27 @@
   "es": {
     "title": "Legales",
     "siteUrl": "emmchier.com",
-    "lastUpdated": "Última actualización: 18/02/2026",
+    "lastUpdated": "Última actualización: 09/06/2026",
     "sections": [
       {
         "heading": "1. Titular del sitio",
         "paragraphs": [
-          "El sitio web emmchier.com es propiedad de Emmanuel Chierchié (en adelante, \"el Titular\").",
-          "Este sitio funciona como el hub central de Emmanuel Chierchié — ilustrador, diseñador UX/UI y desarrollador UI — brindando acceso a su portfolio de arte, portfolio de diseño, CV e información de contacto."
+          "El sitio web emmchier.com (en adelante, \"el Sitio\") es propiedad de Emmanuel Chierchié (en adelante, \"el Titular\").",
+          "Este sitio actúa exclusivamente como un hub personal y punto de entrada al trabajo profesional y creativo del Titular. No aloja contenido de portfolio de forma directa; en cambio, enlaza hacia dos sitios independientes alojados en subdominios: art.emmchier.com (portfolio de ilustración y arte digital) y design.emmchier.com (portfolio de diseño UX/UI y desarrollo).",
+          "Cada sitio de subdominio cuenta con su propio aviso legal que regula el contenido publicado en él."
         ]
       },
       {
         "heading": "2. Propiedad intelectual",
         "paragraphs": [
-          "Todas las obras publicadas en este sitio son de titularidad exclusiva del Autor y se encuentran protegidas por la Ley 11.723 de Propiedad Intelectual de la República Argentina y normativa internacional aplicable.",
-          "La visualización del contenido no implica cesión ni licencia de uso alguna.",
-          "Queda estrictamente prohibido realizar cualquiera de las siguientes acciones sin autorización previa, expresa y por escrito del Titular:"
+          "El nombre, identidad y branding de Emmanuel Chierchié (@emmchier) exhibidos en este sitio son propiedad exclusiva del Titular.",
+          "Las obras artísticas y de diseño referenciadas o enlazadas desde este sitio están publicadas en sus respectivos subdominios (art.emmchier.com y design.emmchier.com) y se encuentran protegidas por la Ley 11.723 de Propiedad Intelectual de la República Argentina y normativa internacional aplicable. Consulte el aviso legal de cada sitio para conocer los términos específicos que rigen dichas obras.",
+          "Queda estrictamente prohibido, sin autorización previa, expresa y por escrito del Titular:"
         ],
         "list": [
-          "Reproducir, copiar o descargar las obras.",
-          "Modificarlas, editarlas o transformarlas.",
-          "Distribuirlas o utilizarlas en medios digitales, impresos o comerciales.",
-          "Utilizarlas con fines promocionales o publicitarios sin autorización.",
-          "Eliminar o alterar créditos de autoría.",
-          "Registrar, tokenizar o vincular las obras a sistemas NFT o similares."
-        ],
-        "paragraphsAfterList": [
-          "El uso de las obras podrá ser autorizado mediante licencia otorgada por el Titular, bajo condiciones específicas que deberán ser previamente acordadas entre las partes.",
-          "Cualquier uso sin autorización constituirá una infracción a los derechos de autor conforme a la Ley 11.723 y podrá dar lugar a las acciones legales correspondientes."
+          "Reproducir o copiar la identidad, branding o cualquier contenido enlazado desde este sitio.",
+          "Utilizar el contenido con fines promocionales, publicitarios o comerciales sin autorización.",
+          "Eliminar o alterar créditos de autoría."
         ]
       },
       {
@@ -139,9 +136,9 @@
         ],
         "list": [
           "El scraping automatizado del contenido del sitio.",
-          "La extracción masiva de imágenes o textos.",
+          "La extracción masiva de textos, enlaces o metadatos.",
           "La incorporación del contenido en bases de datos.",
-          "El uso de las obras para entrenamiento de modelos de inteligencia artificial.",
+          "El uso de cualquier contenido enlazado o referenciado desde este sitio para entrenamiento de modelos de inteligencia artificial.",
           "La utilización del material en datasets, sistemas de machine learning o tecnologías similares."
         ],
         "paragraphsAfterList": [
@@ -149,7 +146,14 @@
         ]
       },
       {
-        "heading": "4. Uso del sitio",
+        "heading": "4. Links externos",
+        "paragraphs": [
+          "Este sitio contiene enlaces a los subdominios del Titular (art.emmchier.com y design.emmchier.com), así como a perfiles profesionales externos (LinkedIn, Dribbble, GitHub, Behance, Instagram, X/Twitter y otros).",
+          "El Titular no es responsable del contenido, disponibilidad ni prácticas de privacidad de ningún sitio externo. El usuario accede a dichos sitios bajo su propio riesgo y conforme a los términos establecidos por cada servicio."
+        ]
+      },
+      {
+        "heading": "5. Uso del sitio",
         "paragraphs": [
           "El acceso y navegación por el sitio implican la aceptación de los presentes términos.",
           "El usuario se compromete a utilizar el sitio de manera lícita y a no realizar acciones que afecten su funcionamiento, seguridad o integridad.",
@@ -157,44 +161,46 @@
         ]
       },
       {
-        "heading": "5. Compartir contenido",
-        "paragraphs": [
-          "El usuario puede compartir enlaces oficiales del sitio en redes sociales.",
-          "No se autoriza la descarga, copia o redistribución directa de las imágenes."
-        ]
-      },
-      {
         "heading": "6. Cookies y analítica",
         "paragraphs": [
-          "El sitio utiliza herramientas de medición a través de Google Tag Manager (GTM), que pueden implicar el uso de cookies técnicas o analíticas.",
+          "El sitio utiliza herramientas de medición a través de Google Tag Manager (GTM-P5KL5JZM), que pueden implicar el uso de cookies técnicas o analíticas.",
           "Estas herramientas permiten obtener estadísticas generales de navegación tales como:"
         ],
         "list": [
           "Páginas visitadas",
           "Tiempo de permanencia",
-          "Tipo de dispositivo y navegador"
+          "Tipo de dispositivo y navegador",
+          "País o región (sin geolocalización precisa)"
         ],
         "paragraphsAfterList": [
           "No se recolectan datos personales identificables de forma directa.",
-          "El usuario puede configurar su navegador para rechazar cookies si así lo desea."
+          "El usuario puede configurar su navegador para rechazar cookies o utilizar extensiones de bloqueo. Para más información sobre cómo Google procesa estos datos, consulte la Política de Privacidad de Google en policies.google.com/privacy."
         ]
       },
       {
         "heading": "7. Protección de datos personales",
         "paragraphs": [
           "Este sitio no solicita ni almacena datos personales mediante formularios ni sistemas de registro.",
-          "En caso de que el usuario se comunique por medios externos (redes sociales u otras plataformas), dicha interacción se regirá por las políticas de privacidad de esos servicios."
+          "En caso de que el usuario se comunique con el Titular por medios externos (redes sociales, correo electrónico u otras plataformas), dicha interacción se regirá por las políticas de privacidad de esos servicios.",
+          "El Titular se compromete a no compartir, vender ni divulgar ningún dato personal obtenido a través de canales de comunicación externos."
         ]
       },
       {
-        "heading": "8. Legislación aplicable y jurisdicción",
+        "heading": "8. Descargo de responsabilidad",
+        "paragraphs": [
+          "El contenido de este sitio se proporciona de buena fe con fines informativos. El Titular no garantiza la exactitud absoluta, integridad o vigencia de la información presentada.",
+          "El Titular no será responsable de ningún daño directo o indirecto derivado del uso de, o la imposibilidad de usar, este sitio web o los sitios externos a los que enlaza."
+        ]
+      },
+      {
+        "heading": "9. Legislación aplicable y jurisdicción",
         "paragraphs": [
           "Los presentes términos se rigen por las leyes de la República Argentina.",
           "Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios con competencia en la República Argentina."
         ]
       },
       {
-        "heading": "9. Aceptación",
+        "heading": "10. Aceptación",
         "paragraphs": [
           "El acceso, navegación y uso del sitio implican que el usuario ha leído y aceptado los presentes términos."
         ]

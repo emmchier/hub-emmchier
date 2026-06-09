@@ -450,18 +450,17 @@ export default function HubHomePage() {
                     </FadeInCard>
                   </div>
 
-                  {/* Col 3 — design.emmchier.com (33.33%, disabled) */}
+                  {/* Col 3 — design.emmchier.com */}
                   <div className="w-full md:w-1/3">
                     <FadeInCard index={2}>
                       <RoleCard
-                        ariaLabel="design.emmchier.com — coming soon"
+                        ariaLabel="Visit design.emmchier.com"
                         url="design.emmchier.com"
                         title="design."
-                        colorTitle="#F6D4C2"
-                        link="#"
+                        colorTitle="#74BDE8"
+                        link="https://design.emmchier.com"
                         description={t.sitesDesignDescription}
-                        state="disabled"
-                        comingSoonLabel={t.comingSoon}
+                        state="enabled"
                       />
                     </FadeInCard>
                   </div>

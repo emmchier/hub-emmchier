@@ -9,6 +9,7 @@ import React, {
   useLayoutEffect,
   useRef,
   useMemo,
+  useId,
 } from 'react';
 import { TabItemProps } from './TabItem';
 import { Button } from '../button/Button';
@@ -65,6 +66,8 @@ export const Tab: React.FC<TabProps> = ({
   bodyStyle,
 }) => {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
+  const uid = useId();
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tabItems = React.Children.toArray(
     children
   ) as ReactElement<TabItemProps>[];
@@ -175,10 +178,34 @@ export const Tab: React.FC<TabProps> = ({
     };
   }, [activeIndex, showSkeleton, lockedBodyTabIndex]);
 
-  const handleTabChange = (index: number) => {
+  const handleTabChange = (index: number, moveFocus = false) => {
     setActiveIndex(index);
     if (onTabChange) {
       onTabChange(index);
+    }
+    if (moveFocus) {
+      tabButtonRefs.current[index]?.focus();
+    }
+  };
+
+  const handleTabKeyDown = (
+    e: React.KeyboardEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    if (lockedBodyTabIndex !== undefined) return;
+    const count = tabItems.length;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      handleTabChange((index + 1) % count, true);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      handleTabChange((index - 1 + count) % count, true);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      handleTabChange(0, true);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      handleTabChange(count - 1, true);
     }
   };
 
@@ -257,6 +284,7 @@ export const Tab: React.FC<TabProps> = ({
             <ul
               ref={containerRef}
               role="tablist"
+              aria-label="Content tabs"
               className="relative m-0 flex list-none flex-nowrap gap-4 p-0 md:gap-[16px]"
             >
               {tabItems.map((child, index) => {
@@ -265,6 +293,11 @@ export const Tab: React.FC<TabProps> = ({
                 return (
                   <li
                     key={`text-${index}`}
+                    role="presentation"
+                    ref={(el) => {
+                      tabButtonRefs.current[index] =
+                        el?.querySelector('button') ?? null;
+                    }}
                     className="shrink-0"
                     style={
                       animateTabs
@@ -278,12 +311,15 @@ export const Tab: React.FC<TabProps> = ({
                   >
                     <Button
                       ariaLabel={child.props.label}
+                      role="tab"
                       size="s"
                       state={isActive ? 'selected' : 'enabled'}
                       noPadding={true}
+                      tabIndex={0}
                       onClick={
                         isActive ? undefined : () => handleTabChange(index)
                       }
+                      onKeyDown={(e) => handleTabKeyDown(e, index)}
                       className={[
                         isActive ? 'cursor-default pointer-events-none' : '',
                         'relative flex h-[48px] w-auto items-center justify-center px-0',
@@ -323,6 +359,9 @@ export const Tab: React.FC<TabProps> = ({
       {/* Body */}
       {hasMeasuredHeight && (
         <div
+          role="tabpanel"
+          id={`${uid}-panel-${lockedBodyTabIndex ?? activeIndex}`}
+          aria-labelledby={`${uid}-tab-${lockedBodyTabIndex ?? activeIndex}`}
           className={['w-full', bodyClasses ? bodyClasses : 'overflow-visible']
             .filter(Boolean)
             .join(' ')}

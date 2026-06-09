@@ -1,21 +1,71 @@
 'use client';
 
 import { ReactNode } from 'react';
+import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 import { Text } from '@/components';
 import { DateTag } from './DateTag';
 import { Chip } from './Chip';
 
 /**
- * Renders a string with simple inline markdown:
- *   **bold** → <strong>bold</strong>
- * Returns an array of React nodes safe to render inline.
+ * Pre-processes description text from Contentful:
+ * - If it contains • bullets, splits on them and converts to Markdown list items.
+ * - Otherwise returns the text as-is (standard Markdown).
  */
-function renderInlineMarkdown(text: string): ReactNode[] {
-  const parts = text.split(/\*\*(.+?)\*\*/g);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? <strong key={i}>{part}</strong> : part
-  );
+function preprocessDescription(text: string): string {
+  if (!text.includes('•')) return text;
+  return text
+    .split('•')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((s) => `- ${s}`)
+    .join('\n');
 }
+
+/** react-markdown component overrides for ResumeCard styling */
+const mdComponents: Components = {
+  // Wrap paragraphs as spans (no block margin inside cards)
+  p: ({ children }) => <span className="block">{children}</span>,
+  // Bullet list — same style as the existing items[] list
+  ul: ({ children }) => (
+    <ul className="m-0 list-none space-y-2 p-0">{children}</ul>
+  ),
+  li: ({ children }) => (
+    <li className="flex gap-2.5">
+      <span
+        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#569CC3]"
+        aria-hidden
+      />
+      <span className="text-[14px] leading-snug text-[#569CC3]">
+        {children}
+      </span>
+    </li>
+  ),
+  // Bold
+  strong: ({ children }) => (
+    <strong className="font-semibold text-[#E5E5E5]">{children}</strong>
+  ),
+  // Italic
+  em: ({ children }) => <em className="italic">{children}</em>,
+  // Links — activated color, open in new tab
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#F6D4C2] underline underline-offset-2 hover:text-[#E6BDA8] transition-colors duration-200"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {children}
+    </a>
+  ),
+  // Inline code
+  code: ({ children }) => (
+    <code className="font-mono text-[0.85em] bg-[#112F40] px-[4px] py-[1px] rounded-sm">
+      {children}
+    </code>
+  ),
+};
 
 export type ResumeCardRightContent = 'date' | 'text';
 
@@ -171,9 +221,11 @@ export const ResumeCard = ({
       )}
 
       {showDescription && description ? (
-        <Text type="body" size="s" color="#569CC3" className="mb-0">
-          {renderInlineMarkdown(description)}
-        </Text>
+        <div className="text-[14px] leading-snug text-[#569CC3]">
+          <ReactMarkdown components={mdComponents}>
+            {preprocessDescription(description)}
+          </ReactMarkdown>
+        </div>
       ) : null}
 
       {items.length > 0 ? (

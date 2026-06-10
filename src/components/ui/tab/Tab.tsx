@@ -75,8 +75,11 @@ export const Tab: React.FC<TabProps> = ({
   const scrollDirection = useScrollDirection();
   const isMobile = breakpoint === 'mobile';
   const contactMobileFlushTabs = Boolean(contactMobileTabsRight && isMobile);
-  const tabListRowClassName = contactMobileFlushTabs
-    ? 'flex items-center w-full justify-end px-[16px] bg-[#112F40]'
+  const tabListRowClassName = contactMobileTabsRight
+    ? [
+        'flex items-center w-full bg-[#112F40] px-0',
+        contactMobileFlushTabs ? 'justify-end' : 'justify-start md:justify-end',
+      ].join(' ')
     : 'flex items-center w-full justify-start px-[16px] md:justify-end md:px-0 md:pl-0 md:pr-[16px] bg-[#112F40]';
 
   // Calcular si el header está en top-0 (scrolleado) o top-[56px] (no scrolleado)

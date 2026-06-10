@@ -809,8 +809,8 @@ video::-webkit-media-controls-start-playback-button {
     'github'
     'behance'
     'dribbble';
-  /* Mobile: horizontal framing only; vertical spacing comes from grid gap + wrapper */
-  padding: 0 1rem;
+  /* Horizontal framing lives on the Hub shell (`HUB_HORIZONTAL_PADDING`); no extra mobile padding here. */
+  padding: 0;
 }
 
 .contact-cards-grid.contact-cards-grid--partial {

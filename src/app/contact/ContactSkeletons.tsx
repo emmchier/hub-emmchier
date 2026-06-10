@@ -8,37 +8,28 @@ function SiteCardSkeleton({ isDesktop }: { isDesktop: boolean }) {
   return (
     <div
       className={[
-        'w-full border border-[#21516B] bg-[#13384D] flex flex-col',
-        isDesktop ? 'h-[70vh] p-[24px]' : 'min-h-[200px] p-[16px]',
+        'relative w-full h-full border border-[#21516B] bg-[#13384D]',
+        isDesktop ? 'p-[24px]' : 'p-[16px]',
       ].join(' ')}
     >
-      {/* URL label row */}
-      <div className="flex items-start justify-between">
+      {/* Header row */}
+      <div className="relative flex items-start justify-between">
         <Skeleton className="rounded-none h-[18px] w-[160px]" />
+        <Skeleton className="rounded-none h-[32px] w-[32px] shrink-0" />
       </div>
 
-      {/* Big outline title — tall block mimicking the clamp text */}
-      <div
-        className={[
-          'mt-[16px]',
-          isDesktop ? 'flex flex-1 items-center' : '',
-        ].join(' ')}
-      >
+      {/* Title */}
+      <div className="relative mt-[16px]">
         <Skeleton
           className={[
             'rounded-none',
-            isDesktop ? 'h-[88px] w-[82%]' : 'h-[60px] w-[72%]',
+            isDesktop ? 'h-[88px] w-[82%]' : 'h-[68px] w-[72%]',
           ].join(' ')}
         />
       </div>
 
-      {/* Description lines — bottom-right */}
-      <div
-        className={[
-          'flex flex-col gap-[8px]',
-          isDesktop ? 'mt-auto w-1/2 ml-auto' : 'mt-[28px]',
-        ].join(' ')}
-      >
+      {/* Description — 72px below title */}
+      <div className="relative mt-[72px] flex flex-col gap-[8px] w-full">
         <Skeleton className="rounded-none h-[13px] w-full" />
         <Skeleton className="rounded-none h-[13px] w-[88%]" />
         <Skeleton className="rounded-none h-[13px] w-[70%]" />
@@ -49,40 +40,49 @@ function SiteCardSkeleton({ isDesktop }: { isDesktop: boolean }) {
 
 export function SitesTabSkeleton() {
   return (
-    <div className="w-full pt-[24px]">
+    <div className="w-full pt-0 md:pt-[24px]">
       {/* Desktop (md+): 3 columns */}
-      <div className="hidden md:flex w-full gap-[8px] items-start">
+      <div className="hidden md:flex w-full gap-[8px] items-stretch">
         {/* Col 1 — intro text */}
-        <div className="w-1/3 flex flex-col gap-[12px] pr-[16px]">
-          <Skeleton className="rounded-none h-[22px] w-[92%]" />
-          <Skeleton className="rounded-none h-[22px] w-[76%]" />
-          <Skeleton className="rounded-none h-[22px] w-[84%]" />
-          <div className="mt-[4px] flex flex-col gap-[8px]">
-            <Skeleton className="rounded-none h-[15px] w-full" />
-            <Skeleton className="rounded-none h-[15px] w-[90%]" />
-            <Skeleton className="rounded-none h-[15px] w-[68%]" />
+        <div className="w-1/3 flex flex-col gap-[16px] md:pr-[64px]">
+          <div className="flex flex-col gap-[4px]">
+            <Skeleton className="rounded-none h-[25px] w-[40%]" />
+            <Skeleton className="rounded-none h-[44px] w-[88%]" />
+            <Skeleton className="rounded-none h-[44px] w-[72%]" />
+            <Skeleton className="rounded-none h-[25px] w-[92%]" />
+            <Skeleton className="rounded-none h-[25px] w-[56%]" />
+          </div>
+          <div className="flex flex-col gap-[8px]">
+            <Skeleton className="rounded-none h-[16px] w-full" />
+            <Skeleton className="rounded-none h-[16px] w-[90%]" />
+            <Skeleton className="rounded-none h-[16px] w-[68%]" />
           </div>
         </div>
         {/* Col 2 — art card */}
-        <div className="w-1/3">
+        <div className="w-1/3 flex">
           <SiteCardSkeleton isDesktop />
         </div>
         {/* Col 3 — design card */}
-        <div className="w-1/3">
+        <div className="w-1/3 flex">
           <SiteCardSkeleton isDesktop />
         </div>
       </div>
 
       {/* Mobile: stacked */}
-      <div className="flex md:hidden flex-col gap-4 px-4">
+      <div className="flex md:hidden flex-col gap-4">
         {/* Intro text */}
-        <div className="flex flex-col gap-[10px]">
-          <Skeleton className="rounded-none h-[20px] w-[88%]" />
-          <Skeleton className="rounded-none h-[20px] w-[72%]" />
-          <div className="mt-[2px] flex flex-col gap-[8px]">
-            <Skeleton className="rounded-none h-[14px] w-full" />
-            <Skeleton className="rounded-none h-[14px] w-[85%]" />
-            <Skeleton className="rounded-none h-[14px] w-[64%]" />
+        <div className="flex flex-col gap-[16px]">
+          <div className="flex flex-col gap-[4px]">
+            <Skeleton className="rounded-none h-[25px] w-[36%]" />
+            <Skeleton className="rounded-none h-[44px] w-[84%]" />
+            <Skeleton className="rounded-none h-[44px] w-[68%]" />
+            <Skeleton className="rounded-none h-[25px] w-[88%]" />
+            <Skeleton className="rounded-none h-[25px] w-[52%]" />
+          </div>
+          <div className="flex flex-col gap-[8px]">
+            <Skeleton className="rounded-none h-[16px] w-full" />
+            <Skeleton className="rounded-none h-[16px] w-[85%]" />
+            <Skeleton className="rounded-none h-[16px] w-[64%]" />
           </div>
         </div>
         {/* art card */}
@@ -163,14 +163,14 @@ export function ResumeTabSkeleton({ isMobile }: { isMobile: boolean }) {
         <>
           {/* Sticky header skeleton */}
           <div className="sticky top-0 z-20 min-h-[56px] flex flex-col bg-primary-background">
-            <div className="flex items-start gap-2 px-4 pt-[8px] pb-[8px]">
+            <div className="flex items-start gap-2 pt-[8px] pb-[8px]">
               <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <Skeleton className="rounded-none h-[24px] w-[200px]" />
                 <Skeleton className="rounded-none h-[16px] w-[160px]" />
               </div>
               <Skeleton className="rounded-none h-[32px] w-[32px]" />
             </div>
-            <div className="w-full min-w-0 pt-2 pb-3 px-4">
+            <div className="w-full min-w-0 pt-2 pb-3">
               <div className="flex flex-nowrap gap-2 pb-1 w-max">
                 {Array.from({ length: 4 }).map((_, i) => (
                   <Skeleton
@@ -182,14 +182,14 @@ export function ResumeTabSkeleton({ isMobile }: { isMobile: boolean }) {
             </div>
           </div>
 
-          <div className="mt-4 flex flex-col gap-3 px-4">
+          <div className="mt-4 flex flex-col gap-3">
             {Array.from({ length: 4 }).map((_, i) => (
               <ResumeCardSkeleton key={`resume-card-skel-m-${i}`} />
             ))}
           </div>
         </>
       ) : (
-        <div className="w-full lg:px-[16px]">
+        <div className="w-full">
           <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-x-6 lg:gap-y-0 xl:gap-x-8">
             {/* Left column (50%) header + anchors */}
             <div className="lg:col-span-6 flex w-full flex-col gap-4 lg:sticky lg:top-6 lg:z-10 lg:self-start">

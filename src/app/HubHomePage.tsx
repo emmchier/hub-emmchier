@@ -49,6 +49,11 @@ import {
   shareOnX,
 } from '@/utils/functions';
 import { useEntranceAnimation } from '@/hooks/useEntranceAnimation';
+import {
+  HUB_HORIZONTAL_PADDING,
+  HUB_TAB_BOTTOM_SPACING,
+  HUB_TAB_INNER_BOTTOM_SPACING,
+} from '@/constants/hub-layout';
 
 // ── Tab indices ────────────────────────────────────────────────────────────────
 const TAB_SITES = 0;
@@ -64,9 +69,11 @@ const TAB_RESUME = 2;
 function FadeInCard({
   children,
   index,
+  className = '',
 }: {
   children: ReactNode;
   index: number;
+  className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const entranceReady = useEntranceAnimation();
@@ -132,7 +139,7 @@ function FadeInCard({
   })();
 
   return (
-    <div ref={ref} style={style}>
+    <div ref={ref} className={className} style={style}>
       {children}
     </div>
   );
@@ -318,21 +325,23 @@ export default function HubHomePage() {
 
   return (
     <>
-      <div className="relative flex w-full flex-col">
+      <div
+        className={`relative flex w-full flex-col ${HUB_HORIZONTAL_PADDING}`}
+      >
         {/* ── Wave header — "art. / emmchier." with neon entrance animation ── */}
-        <div className="relative w-full px-[8px] md:px-0 pt-[24px] md:pt-[32px] pb-[8px] md:pb-0">
+        <div className="relative w-full pt-[24px] md:pt-[32px] pb-[8px] md:pb-0">
           <Header />
         </div>
 
         <Tab
           className="w-full"
           contactMobileTabsRight
-          mobileBodyMarginTop="12px"
+          mobileBodyMarginTop="24px"
           mobileIndicatorBottomClass="bottom-[6px]"
           desktopBodyMarginTop="16px"
           showSkeletonOverride={showTabContentSkeleton}
           headerSkeleton={
-            <div className="relative w-full h-full px-[16px] md:px-[16px] pt-[12px] md:pt-0 flex items-center justify-between gap-[16px]">
+            <div className="relative w-full h-full pt-[12px] md:pt-0 flex items-center justify-between gap-[16px]">
               <div className="flex items-center gap-2">
                 <div className="skeleton-pulse rounded-full h-[32px] w-[32px] md:h-[48px] md:w-[48px]" />
               </div>
@@ -358,9 +367,9 @@ export default function HubHomePage() {
               if (pathname !== '/') router.replace('/');
             }
           }}
-          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 min-h-[72px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
+          headerClasses="z-30 flex flex-row w-full items-center justify-between gap-4 bg-primary-background px-0 py-0 min-h-[56px] md:max-[1265px]:min-h-[64px] min-[1266px]:min-h-[88px]"
           sideContent={
-            <div className="relative z-10 flex w-full items-center overflow-visible px-[16px] md:z-auto md:px-[16px]">
+            <div className="relative z-10 flex w-full items-center overflow-visible md:z-auto">
               <div className="flex w-full flex-row items-center gap-2 overflow-visible">
                 <BaseModal
                   type="avatar"
@@ -389,7 +398,7 @@ export default function HubHomePage() {
         >
           {/* ── Tab 0: Sites. ─────────────────────────────────────────────── */}
           <TabItem label={t.sites}>
-            <div className="relative pb-[72px] md:pb-4">
+            <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
               {/* Skeleton overlay — fades out once skeleton session ends */}
               {activeTabIndex === TAB_SITES && (
                 <div
@@ -402,32 +411,49 @@ export default function HubHomePage() {
                       : 'opacity 500ms ease-out',
                   }}
                 >
-                  <div className="w-full md:px-[16px]">
+                  <div className="w-full">
                     <SitesTabSkeleton />
                   </div>
                 </div>
               )}
 
-              <div className="md:px-[16px]">
+              <div>
                 {/* 3-column layout: intro | art card | design card */}
-                <div className="flex flex-col md:flex-row md:items-start md:gap-[8px] pt-[24px] px-4 md:px-0 gap-4 pb-4 md:pb-0">
+                <div
+                  className={`flex flex-col md:flex-row md:items-stretch md:gap-[8px] pt-0 md:pt-[24px] gap-4 ${HUB_TAB_INNER_BOTTOM_SPACING}`}
+                >
                   {/* Col 1 — Intro (33.33%) */}
                   <div className="w-full md:w-1/3">
-                    <FadeInCard index={0}>
-                      <div className="flex flex-col justify-start gap-3 md:pr-[16px]">
-                        <Text
-                          type="title"
-                          size="m"
-                          weight="bold"
-                          heading="h2"
-                          className="text-[#569CC3]"
-                        >
-                          {t.sitesIntroTitle}
-                        </Text>
+                    <FadeInCard index={0} className="h-full w-full">
+                      <div className="flex flex-col justify-start gap-4 md:pr-[64px]">
+                        <div className="flex flex-col text-primary-text">
+                          <Text
+                            type="body"
+                            weight="regular"
+                            className="text-[25px]! leading-[1.2]"
+                          >
+                            {t.sitesIntroGreeting}
+                          </Text>
+                          <Text
+                            type="title"
+                            heading="h2"
+                            weight="bold"
+                            className="text-[44px]! leading-[1.1]"
+                          >
+                            {t.sitesIntroName}
+                          </Text>
+                          <Text
+                            type="body"
+                            weight="regular"
+                            className="text-[25px]! leading-[1.2]"
+                          >
+                            {t.sitesIntroRoles}
+                          </Text>
+                        </div>
                         <Text
                           type="body"
-                          size="m"
-                          className="text-primary-text"
+                          weight="regular"
+                          className="text-[16px]! leading-normal"
                         >
                           {t.sitesIntroBody}
                         </Text>
@@ -436,13 +462,13 @@ export default function HubHomePage() {
                   </div>
 
                   {/* Col 2 — art.emmchier.com (33.33%) */}
-                  <div className="w-full md:w-1/3">
-                    <FadeInCard index={1}>
+                  <div className="w-full md:w-1/3 md:flex">
+                    <FadeInCard index={1} className="h-full w-full">
                       <RoleCard
                         ariaLabel="Visit art.emmchier.com"
                         url="art.emmchier.com"
                         title="art."
-                        colorTitle="#67CFCB"
+                        colorTitle="#F6D4C2"
                         link="https://art.emmchier.com"
                         description={t.sitesArtDescription}
                         state="enabled"
@@ -451,13 +477,13 @@ export default function HubHomePage() {
                   </div>
 
                   {/* Col 3 — design.emmchier.com */}
-                  <div className="w-full md:w-1/3">
-                    <FadeInCard index={2}>
+                  <div className="w-full md:w-1/3 md:flex">
+                    <FadeInCard index={2} className="h-full w-full">
                       <RoleCard
                         ariaLabel="Visit design.emmchier.com"
                         url="design.emmchier.com"
                         title="design."
-                        colorTitle="#74BDE8"
+                        colorTitle="#67CFCB"
                         link="https://design.emmchier.com"
                         description={t.sitesDesignDescription}
                         state="enabled"
@@ -471,7 +497,7 @@ export default function HubHomePage() {
 
           {/* ── Tab 1: Contact. ───────────────────────────────────────────── */}
           <TabItem label={t.contact}>
-            <div className="relative pb-[72px] md:pb-4">
+            <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
               {activeTabIndex === TAB_CONTACT && (
                 <div
                   className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
@@ -483,12 +509,12 @@ export default function HubHomePage() {
                       : 'opacity 500ms ease-out',
                   }}
                 >
-                  <div className="w-full md:px-[16px]">
+                  <div className="w-full">
                     <SayHelloTabSkeleton />
                   </div>
                 </div>
               )}
-              <div className="md:px-[16px]">
+              <div>
                 {(() => {
                   type ContactItem =
                     | { type: 'email'; email: string }
@@ -579,7 +605,9 @@ export default function HubHomePage() {
                   }
 
                   return (
-                    <div className="flex flex-col gap-2 w-full min-w-0 pb-4 md:pb-0">
+                    <div
+                      className={`flex flex-col gap-2 w-full min-w-0 ${HUB_TAB_INNER_BOTTOM_SPACING}`}
+                    >
                       {chunks.map((chunk, chunkIndex) => {
                         const isPartialChunk = chunk.length < SLOT_AREAS.length;
 
@@ -729,7 +757,7 @@ export default function HubHomePage() {
 
           {/* ── Tab 2: Resumé. ────────────────────────────────────────────── */}
           <TabItem label={t.resume}>
-            <div className="relative pb-[72px] md:pb-4">
+            <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
               {activeTabIndex === TAB_RESUME && (
                 <div
                   className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
@@ -741,12 +769,12 @@ export default function HubHomePage() {
                       : 'opacity 500ms ease-out',
                   }}
                 >
-                  <div className="w-full lg:px-[16px]">
+                  <div className="w-full">
                     <ResumeTabSkeleton isMobile={!isResumeDesktopLayout} />
                   </div>
                 </div>
               )}
-              <div className="lg:px-[16px]">
+              <div className={HUB_TAB_INNER_BOTTOM_SPACING}>
                 {!isResumeDesktopLayout ? (
                   <>
                     <div
@@ -754,7 +782,7 @@ export default function HubHomePage() {
                       className="sticky top-0 z-20 min-h-[56px] flex flex-col bg-primary-background"
                       style={{ transform: 'translateZ(0)' }}
                     >
-                      <div className="flex items-start gap-2 px-4 py-[16px]">
+                      <div className="flex items-start gap-2 py-[16px]">
                         <div className="flex min-w-0 flex-1 flex-col">
                           <Text
                             type="title"
@@ -789,7 +817,7 @@ export default function HubHomePage() {
                       </div>
                       <div
                         ref={resumeChipsScrollRef}
-                        className="scrollbar-hide overflow-x-auto overflow-y-hidden w-full min-w-0 pt-2 pb-3 px-4 scroll-smooth"
+                        className="scrollbar-hide overflow-x-auto overflow-y-hidden w-full min-w-0 pt-2 pb-3 scroll-smooth"
                         style={{
                           WebkitOverflowScrolling: 'touch',
                           touchAction: 'pan-x',

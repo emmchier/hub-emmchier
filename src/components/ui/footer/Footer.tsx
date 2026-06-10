@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSkeletonOnce } from '@/hooks/useSkeletonOnce';
 import { ButtonGroup, ButtonGroupItem } from '@/components';
 import { useTranslation } from '@/hooks/useTranslation';
+import { HUB_HORIZONTAL_PADDING } from '@/constants/hub-layout';
 
 export const Footer = () => {
   const { language } = useUIStore();
@@ -23,7 +24,7 @@ export const Footer = () => {
   return (
     <footer
       role="contentinfo"
-      className="w-full mt-auto shrink-0 pt-[32px] md:pt-[64px] px-[24px] flex min-h-[80px] items-center justify-start py-[12px] md:justify-center box-border text-[#437B9A]"
+      className={`w-full mt-auto shrink-0 pt-[32px] md:pt-[64px] ${HUB_HORIZONTAL_PADDING} flex min-h-[80px] items-center justify-start py-[12px] md:justify-center box-border text-[#437B9A]`}
     >
       <div className="mx-auto w-full max-w-full flex items-center justify-between gap-4 text-sm text-left">
         <div className="flex min-w-0 flex-col gap-[4px] md:flex-row md:flex-nowrap md:items-center md:gap-[4px]">

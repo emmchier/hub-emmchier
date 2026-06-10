@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Button, ChevronLeftIcon, Text, Tooltip } from '@/components';
 import { useUIStore } from '@/store/ui/ui-store';
 import legalsContent from '@/i18n/legals.json';
+import { HUB_HORIZONTAL_PADDING } from '@/constants/hub-layout';
 
 type LegalsSection = {
   heading: string;
@@ -25,9 +26,11 @@ export default function LegalsPage() {
   const content = legalsContent[language] as LegalsData;
 
   return (
-    <div className="min-h-screen bg-primary-background px-[8px] pb-8">
+    <div
+      className={`min-h-screen bg-primary-background pb-8 ${HUB_HORIZONTAL_PADDING}`}
+    >
       <div className="max-w-6xl mx-auto">
-        <div className="w-full flex justify-center px-[16px] md:px-[40px] pt-[24px] pb-[72px]">
+        <div className="w-full flex justify-center pt-[24px] pb-[72px]">
           <div className="w-full max-w-2xl mx-auto space-y-8 content-list">
             {/* Back button */}
             <div className="mb-[48px]">

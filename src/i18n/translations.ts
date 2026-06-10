@@ -51,8 +51,9 @@ export const translations = {
     comingSoon: 'Coming Soon',
 
     // Sites tab
-    sitesIntroTitle:
-      "Hi, I'm Emmanuel Chierchie, illustrator, UX/UI designer and UI developer",
+    sitesIntroGreeting: "Hi, I'm",
+    sitesIntroName: 'Emmanuel',
+    sitesIntroRoles: 'illustrator, UX/UI Designer, UI Developer',
     sitesIntroBody:
       'Each section leads to a dedicated site, focused on a specific part of my creative process. Feel free to explore and jump into whatever catches your eye.',
     sitesArtDescription:
@@ -104,8 +105,9 @@ export const translations = {
     comingSoon: 'Pronto',
 
     // Sites tab
-    sitesIntroTitle:
-      'Hola, soy Emmanuel Chierchie, ilustrador, diseñador UX/UI y desarrollador UI',
+    sitesIntroGreeting: 'Hola, soy',
+    sitesIntroName: 'Emmanuel',
+    sitesIntroRoles: 'ilustrador, diseñador UX/UI, desarrollador UI',
     sitesIntroBody:
       'Cada sección lleva a un sitio dedicado, enfocado en una parte específica de mi proceso creativo. Explorá libremente y entrá en lo que te llame la atención.',
     sitesArtDescription:

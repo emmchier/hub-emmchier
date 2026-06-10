@@ -801,7 +801,7 @@ export function ResumeTabContent({
     const section = sectionsByCategory.get(category);
     if (!section) return null;
     return (
-      <section className="w-full px-4">
+      <section className="w-full">
         {renderSectionContent(category, section, animationKey)}
       </section>
     );

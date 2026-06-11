@@ -585,8 +585,14 @@ li {
 }
 
 .content-list a {
+  color: #74bde8;
   text-decoration: underline !important;
   text-underline-offset: 0.12em;
+  transition: color 200ms;
+}
+
+.content-list a:hover {
+  color: #55a7d8;
 }
 
 /* Selection Styles */

@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Button, ChevronLeftIcon, Text, Tooltip } from '@/components';
+import { Button, Text, Tooltip } from '@/components';
+import { ArrowLeftIcon } from '@/components/ui/icon/icons';
 import { useUIStore } from '@/store/ui/ui-store';
 import legalsContent from '@/i18n/legals.json';
 import { HUB_HORIZONTAL_PADDING } from '@/constants/hub-layout';
@@ -41,7 +42,7 @@ export default function LegalsPage() {
                   size="m"
                   className="w-[48px]! h-[48px]!"
                   style={{ backgroundColor: '#173B4F' }}
-                  icon={<ChevronLeftIcon size="md" />}
+                  icon={<ArrowLeftIcon />}
                   onClick={() => router.back()}
                 />
               </Tooltip>

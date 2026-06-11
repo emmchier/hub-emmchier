@@ -111,12 +111,7 @@ const CardButton: React.FC<CardButtonProps> = ({
         <div className="flex flex-col items-start gap-0 text-left min-w-0">
           <span
             className="block min-w-0 font-semibold tracking-[-0.02em] text-[32px] leading-[32px] md:text-[46px] md:leading-[58px] lg:text-[50px] lg:leading-[65px]"
-            style={{
-              color: 'transparent',
-              WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: `1px ${color}`,
-              paintOrder: 'stroke fill',
-            }}
+            style={{ color }}
           >
             {cardTitleLine(title)}
           </span>

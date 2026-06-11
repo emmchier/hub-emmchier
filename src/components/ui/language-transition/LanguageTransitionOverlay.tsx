@@ -162,6 +162,7 @@ export function LanguageTransitionOverlay() {
           gridAutoRows: `${PIXEL_SIZE}px`,
           position: 'absolute',
           inset: 0,
+          pointerEvents: 'none',
         }}
       >
         {cells.map((cell, i) => (

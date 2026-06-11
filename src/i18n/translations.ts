@@ -22,6 +22,7 @@ export const translations = {
     // Footer
     legals: 'Legals',
     poweredBy: 'Powered by',
+    poweredByLink: 'me',
 
     // Gallery / Project page
     gallery: 'Gallery.',
@@ -76,6 +77,7 @@ export const translations = {
     // Footer
     legals: 'Legales',
     poweredBy: 'Creado por',
+    poweredByLink: 'mí',
 
     // Gallery / Project page
     gallery: 'Galería.',

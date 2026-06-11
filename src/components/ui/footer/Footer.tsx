@@ -56,7 +56,7 @@ export const Footer = () => {
                 rel="noopener noreferrer"
                 className="underline! hover:text-selected-text soft inline"
               >
-                me
+                {t.poweredByLink}
               </a>
             </span>
           </div>

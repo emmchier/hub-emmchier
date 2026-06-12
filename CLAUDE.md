@@ -2053,3 +2053,23 @@ La versión anterior de los legales hacía referencia a "art portfolio, design p
 - ✅ Mantener EN y ES en sincronía
 - ❌ No referenciar "art portfolio" o "design portfolio" como contenido del Hub — el Hub no aloja obras
 - ❌ No agregar secciones sin actualizar ambos idiomas
+
+---
+
+## 32. Pulido UI sincronizado desde Design (2026-06-12)
+
+> Ajustes portados desde `design-emmchier` para mantener paridad de plataforma. No regresar.
+
+### 32.1 Legales — links navegables (`linkify`)
+
+**`src/app/legals/page.tsx`**: helper `linkify(text)` que convierte en `<a target="_blank" rel="noopener noreferrer">` toda mención de `policies.google.com/privacy`, `design.emmchier.com`, `art.emmchier.com` y `emmchier.com` en párrafos, listas, `paragraphsAfterList` y la línea de `siteUrl`. Targets más largos primero en `LINKIFY_TARGETS` (los subdominios contienen `emmchier.com` como substring). El back button del Hub sigue siendo `fixed top-[16px]` — el Hub no tiene navbar fija, NO aplicar el patrón de medición de header de Art/Design.
+
+### 32.2 Footer — "Legales" selected no clickeable
+
+En `/legals`, el link "Legales" se reemplaza por `<span aria-current="page" className="... text-selected-text cursor-default">`. **Regla de plataforma: todo estado selected no es interactivo.**
+
+### 32.3 Tooltip — wrapping multi-línea y regla desktop-only
+
+- Estilo: `width: max-content; maxWidth: 200px; whiteSpace: normal; wordBreak: break-word` (antes `nowrap` + ellipsis truncaba contenidos largos).
+- **Desktop-only en toda la plataforma:** `if (!isDesktop || isTabletOrBelow) return children` — nunca tooltips ni eventos hover decorativos en tablet/mobile.
+- El icon button Share del Resumé (desktop) lleva `<Tooltip content={Share/Compartir} direction="bottom">`.

@@ -691,7 +691,10 @@ export function ResumeTabContent({
                       }}
                     />
                   </Tooltip>
-                  <Tooltip content={language === 'es' ? 'Compartir' : 'Share'} direction="bottom">
+                  <Tooltip
+                    content={language === 'es' ? 'Compartir' : 'Share'}
+                    direction="bottom"
+                  >
                     <Dropdown
                       trigger={
                         <Button

@@ -1,11 +1,47 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Text, Tooltip } from '@/components';
 import { ArrowLeftIcon } from '@/components/ui/icon/icons';
 import { useUIStore } from '@/store/ui/ui-store';
 import legalsContent from '@/i18n/legals.json';
 import { HUB_HORIZONTAL_PADDING } from '@/constants/hub-layout';
+
+// URLs mentioned in the legals copy that must be navigable. Longer entries
+// first so e.g. emmchier.com never half-matches a longer sibling.
+const LINKIFY_TARGETS = [
+  'policies.google.com/privacy',
+  'design.emmchier.com',
+  'art.emmchier.com',
+  'emmchier.com',
+];
+
+const LINKIFY_REGEX = new RegExp(
+  `(${LINKIFY_TARGETS.map((t) => t.replace(/[./]/g, '\\$&')).join('|')})`,
+  'g'
+);
+
+const linkify = (text: string): ReactNode => {
+  const parts = text.split(LINKIFY_REGEX);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    LINKIFY_TARGETS.includes(part) ? (
+      <a
+        key={i}
+        href={`https://${part}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Visit ${part}`}
+        className="hover:text-selected-text soft"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+};
 
 type LegalsSection = {
   heading: string;
@@ -60,7 +96,7 @@ export default function LegalsPage() {
 
             {/* Site URL */}
             <Text type="body" size="m" className="text-primary-text">
-              {content.siteUrl}
+              {linkify(content.siteUrl)}
             </Text>
 
             {/* Last updated */}
@@ -87,7 +123,7 @@ export default function LegalsPage() {
                     size="m"
                     className="text-primary-text leading-relaxed"
                   >
-                    {p}
+                    {linkify(p)}
                   </Text>
                 ))}
 
@@ -106,7 +142,7 @@ export default function LegalsPage() {
                           size="m"
                           className="text-primary-text leading-relaxed"
                         >
-                          {item}
+                          {linkify(item)}
                         </Text>
                       </li>
                     ))}
@@ -120,7 +156,7 @@ export default function LegalsPage() {
                     size="m"
                     className="text-primary-text leading-relaxed"
                   >
-                    {p}
+                    {linkify(p)}
                   </Text>
                 ))}
               </div>

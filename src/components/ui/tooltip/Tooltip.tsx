@@ -152,10 +152,10 @@ export const Tooltip = ({
         style={{
           backgroundColor: bg,
           color: textColor,
+          width: 'max-content',
           maxWidth: '200px',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
           ...style,
         }}
       >

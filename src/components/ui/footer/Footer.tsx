@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useUIStore } from '@/store/ui/ui-store';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSkeletonOnce } from '@/hooks/useSkeletonOnce';
 import { ButtonGroup, ButtonGroupItem } from '@/components';
@@ -10,12 +11,15 @@ import { HUB_HORIZONTAL_PADDING } from '@/constants/hub-layout';
 export const Footer = () => {
   const { language } = useUIStore();
   const t = useTranslation();
+  const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
   const showSkeleton = useSkeletonOnce();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const isLegalsPage = isMounted && pathname === '/legals';
 
   if (showSkeleton) {
     return null;
@@ -37,12 +41,21 @@ export const Footer = () => {
               |
             </span>
 
-            <Link
-              href="/legals"
-              className="text-left whitespace-nowrap hover:text-selected-text transition-colors"
-            >
-              {t.legals}
-            </Link>
+            {isLegalsPage ? (
+              <span
+                aria-current="page"
+                className="text-left whitespace-nowrap text-selected-text cursor-default"
+              >
+                {t.legals}
+              </span>
+            ) : (
+              <Link
+                href="/legals"
+                className="text-left whitespace-nowrap hover:text-selected-text transition-colors"
+              >
+                {t.legals}
+              </Link>
+            )}
 
             <span className="shrink-0" aria-hidden>
               |

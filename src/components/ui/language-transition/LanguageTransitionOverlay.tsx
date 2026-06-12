@@ -169,6 +169,7 @@ export function LanguageTransitionOverlay() {
           <div
             key={i}
             style={{
+              pointerEvents: 'none',
               backgroundColor: cell.color,
               // Start hidden — cannot rely on animation backwards-fill here because
               // pixel-out (declared second) would win the cascade during its own

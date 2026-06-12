@@ -33,8 +33,8 @@ export default function LegalsPage() {
       <div className="max-w-6xl mx-auto">
         <div className="w-full flex justify-center pt-[24px] pb-[72px]">
           <div className="w-full max-w-2xl mx-auto space-y-8 content-list">
-            {/* Back button */}
-            <div className="mb-[48px]">
+            {/* Back button — fixed 16px from top-left (Hub has no fixed navbar), survives scroll */}
+            <div className="fixed left-[16px] top-[16px] z-50">
               <Tooltip content="Back to home" direction="right">
                 <Button
                   ariaLabel="Go back"

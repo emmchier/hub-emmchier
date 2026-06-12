@@ -853,3 +853,11 @@ html.inverted-cursor-active,
 html.inverted-cursor-active * {
   cursor: none !important;
 }
+
+/*
+ * NOTE — touch devices & hover: do NOT add a global `*:hover { ... revert }` rule.
+ * On touch, tapping applies sticky :hover to the element AND all its ancestors
+ * (html/body included), and `revert` resets to the BROWSER default (transparent
+ * background → white page). Tailwind v4 already gates `hover:` variants behind
+ * (hover: hover); for custom CSS hovers, wrap that specific rule instead.
+ */

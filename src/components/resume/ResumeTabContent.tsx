@@ -691,33 +691,35 @@ export function ResumeTabContent({
                       }}
                     />
                   </Tooltip>
-                  <Dropdown
-                    trigger={
-                      <Button
-                        ariaLabel="Share resumé"
-                        type="button"
-                        size="m"
-                        variant="outlined"
-                        iconButton
-                        icon={
-                          <ShareIcon
-                            color="currentColor"
-                            width={28}
-                            height={28}
-                            className="shrink-0"
-                          />
-                        }
-                        className="border-[#2D6786] text-[#F6D4C2]! hover:border-[#2D6786] hover:bg-[#2D6786]/15! focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-selected-text/40"
-                      />
-                    }
-                    listItems={shareOptions}
-                    menuAlignment="bottomRight"
-                    openBy="click"
-                    menuWidth="w-[200px]"
-                    closeOnItemClick={false}
-                    showIcons={true}
-                    iconPosition="right"
-                  />
+                  <Tooltip content={language === 'es' ? 'Compartir' : 'Share'} direction="bottom">
+                    <Dropdown
+                      trigger={
+                        <Button
+                          ariaLabel="Share resumé"
+                          type="button"
+                          size="m"
+                          variant="outlined"
+                          iconButton
+                          icon={
+                            <ShareIcon
+                              color="currentColor"
+                              width={28}
+                              height={28}
+                              className="shrink-0"
+                            />
+                          }
+                          className="border-[#2D6786] text-[#F6D4C2]! hover:border-[#2D6786] hover:bg-[#2D6786]/15! focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-selected-text/40"
+                        />
+                      }
+                      listItems={shareOptions}
+                      menuAlignment="bottomRight"
+                      openBy="click"
+                      menuWidth="w-[200px]"
+                      closeOnItemClick={false}
+                      showIcons={true}
+                      iconPosition="right"
+                    />
+                  </Tooltip>
                 </div>
               </div>
             </header>

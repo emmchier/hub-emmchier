@@ -318,17 +318,18 @@ export const ChevronDownIcon = ({
 export const ChevronLeftIcon = ({
   color = 'currentColor',
   className,
-  size = 'md',
   ...props
 }: IconProps) => {
   return (
     <Icon
       color={color}
-      size={size}
+      viewBox="0 0 11 20"
+      width={11}
+      height={20}
       className={className}
       path={
         <path
-          d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+          d="M8.47686 0L11 2.45945L3.2542 10.0097L10.9772 17.5406L8.4541 20L0 11.7566V8.26563L0.731058 7.55026L8.47686 0Z"
           fill="currentColor"
         />
       }
@@ -340,17 +341,18 @@ export const ChevronLeftIcon = ({
 export const ChevronRightIcon = ({
   color = 'currentColor',
   className,
-  size = 'md',
   ...props
 }: IconProps) => {
   return (
     <Icon
       color={color}
-      size={size}
+      viewBox="0 0 11 20"
+      width={11}
+      height={20}
       className={className}
       path={
         <path
-          d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"
+          d="M2.52314 0L0 2.45945L7.7458 10.0097L0.0228 17.5406L2.5459 20L11 11.7566V8.26563L10.268942 7.55026L2.52314 0Z"
           fill="currentColor"
         />
       }

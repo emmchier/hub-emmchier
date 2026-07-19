@@ -7,14 +7,14 @@ const ogImageUrl = `${siteUrl}/api/og-resume`;
 
 const TEXTS = {
   en: {
-    title: 'Resumé | Emmanuel Chierchié',
+    title: 'Emmchier. | Resumé',
     description:
-      'Illustrator, UX/UI designer and UI developer. ATS CV available for download.',
+      'CV of Emmanuel Chierchié (@emmchier) — illustrator, UX/UI designer and UI developer. ATS PDF available for download.',
   },
   es: {
-    title: 'Currículum | Emmanuel Chierchié',
+    title: 'Emmchier. | Currículum',
     description:
-      'Ilustrador, diseñador UX/UI y desarrollador UI. CV en formato ATS disponible para descargar.',
+      'CV de Emmanuel Chierchié (@emmchier) — ilustrador, diseñador UX/UI y desarrollador UI. PDF ATS disponible para descargar.',
   },
 };
 
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: t.title,
       description: t.description,
       url: `${siteUrl}/resume/work-experience`,
-      siteName: 'Emmanuel Chierchié',
+      siteName: 'Emmchier.',
       type: 'website',
       images: [
         {
@@ -74,6 +74,8 @@ export default function ResumeLayout({
   children: ReactNode;
 }>) {
   return (
-    <div className="relative flex w-full flex-col fade-in">{children}</div>
+    <div className="relative flex w-full min-h-0 flex-1 flex-col fade-in">
+      {children}
+    </div>
   );
 }

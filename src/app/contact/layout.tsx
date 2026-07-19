@@ -3,18 +3,18 @@ import type { ReactNode } from 'react';
 import { cookies } from 'next/headers';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://emmchier.com';
-const ogImageUrl = `${siteUrl}/api/og-resume`;
+const metaImageUrl = `${siteUrl}/assets/emmchier-metatag.png`;
 
 const TEXTS = {
   en: {
-    title: 'Contact & Resumé | Emmanuel Chierchié',
+    title: 'Emmchier. | Contact',
     description:
-      'Illustrator, UX/UI designer and UI developer. ATS CV available for download.',
+      'Say hello to Emmanuel Chierchié (@emmchier) — email and social profiles. Hub linking art.emmchier.com and design.emmchier.com.',
   },
   es: {
-    title: 'Contacto y CV | Emmanuel Chierchié',
+    title: 'Emmchier. | Contacto',
     description:
-      'Ilustrador, diseñador UX/UI y desarrollador UI. CV en formato ATS disponible para descargar.',
+      'Charlá con Emmanuel Chierchié (@emmchier) — email y perfiles sociales. Hub que conecta art.emmchier.com y design.emmchier.com.',
   },
 };
 
@@ -29,28 +29,25 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: [
       'Emmanuel Chierchié',
       'emmchier',
-      'CV',
-      'resume',
+      'contact',
+      'email',
+      'social',
       'illustrator',
       'UX designer',
       'UI developer',
-      'ATS',
-      'portfolio',
     ],
     openGraph: {
       title: t.title,
       description: t.description,
-      url: `${siteUrl}/resume/work-experience`,
-      siteName: 'Emmanuel Chierchié',
+      url: `${siteUrl}/contact`,
+      siteName: 'Emmchier.',
       type: 'website',
       images: [
         {
-          url: ogImageUrl,
-          secureUrl: ogImageUrl,
-          width: 1200,
-          height: 630,
-          type: 'image/jpeg',
-          alt: 'Resumé — Emmanuel Chierchié',
+          url: metaImageUrl,
+          width: 1630,
+          height: 916,
+          alt: t.title,
         },
       ],
     },
@@ -60,10 +57,10 @@ export async function generateMetadata(): Promise<Metadata> {
       creator: '@emmchier',
       title: t.title,
       description: t.description,
-      images: [ogImageUrl],
+      images: [metaImageUrl],
     },
     alternates: {
-      canonical: `${siteUrl}/resume/work-experience`,
+      canonical: `${siteUrl}/contact`,
     },
   };
 }
@@ -74,6 +71,8 @@ export default function ContactLayout({
   children: ReactNode;
 }>) {
   return (
-    <div className="relative flex w-full flex-col fade-in">{children}</div>
+    <div className="relative flex w-full min-h-0 flex-1 flex-col fade-in">
+      {children}
+    </div>
   );
 }

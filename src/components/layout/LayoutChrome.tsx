@@ -20,14 +20,23 @@ export function LayoutChrome({ children }: LayoutChromeProps) {
     closeDrawer();
   }, [pathname, closeDrawer]);
 
+  // Always flex-1 so Footer `mt-auto` pins to the viewport bottom on short
+  // tabs (Languages / Studies). Hub tab switches use history.replaceState, so
+  // pathname alone is not a reliable signal for Contact/Resume fill.
+  // Classes match Art LayoutChrome contact shell (overflow-x-clip + min-w-0).
+  const routeContentClass =
+    'flex w-full min-w-0 max-w-full flex-1 flex-col overflow-x-clip min-h-0';
+
   return (
     <>
       <OfflineDetector />
       <LanguageTransitionOverlay />
       <InvertedCursor />
       <BottomSheet />
-      <div className="flex min-h-0 w-full flex-1 flex-col">
-        <div className="flex w-full flex-col min-h-0">{children}</div>
+      {/* min-h-dvh: independent of body/main quirks — shell is always at least
+          one dynamic viewport tall so Footer mt-auto can pin to the bottom. */}
+      <div className="flex min-h-dvh w-full min-w-0 max-w-full flex-1 flex-col overflow-x-clip">
+        <div className={routeContentClass}>{children}</div>
         <Footer />
       </div>
     </>

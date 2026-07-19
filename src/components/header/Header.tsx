@@ -68,7 +68,7 @@ export const Header = ({ className }: HeaderProps) => {
     <div className="relative w-full flex justify-center">
       {/* Skeleton shimmer — fades out when skeleton ends */}
       <div
-        className={`${layoutClasses} absolute inset-0 z-10 flex justify-center`}
+        className={`${layoutClasses} absolute inset-0 z-10 flex w-full justify-center`}
         aria-hidden="true"
         style={{
           opacity: showSkeleton ? 1 : 0,
@@ -77,7 +77,7 @@ export const Header = ({ className }: HeaderProps) => {
         }}
       >
         <span
-          className="text-[clamp(4.5rem,16vw,15.5rem)] leading-[0.8] whitespace-nowrap"
+          className="w-full text-center text-[clamp(3.5rem,19vw,32rem)] leading-[0.8] whitespace-nowrap"
           style={{
             background:
               'linear-gradient(90deg, #0f2a39 0%, #173b4f 18%, #1d536e 46%, #569cc322 50%, #1d536e 54%, #173b4f 82%, #0f2a39 100%)',
@@ -94,8 +94,8 @@ export const Header = ({ className }: HeaderProps) => {
       </div>
 
       {/* Animated letters */}
-      <div className={`${layoutClasses} relative z-0`}>
-        <span className="text-[clamp(4.5rem,16vw,15.5rem)] leading-[0.8] whitespace-nowrap">
+      <div className={`${layoutClasses} relative z-0 w-full`}>
+        <span className="block w-full text-center text-[clamp(3.5rem,19vw,32rem)] leading-[0.8] whitespace-nowrap">
           {/* "emmchier." — letters start at index 0 */}
           <GlowText text="emmchier." startIndex={0} animate={animate} />
         </span>

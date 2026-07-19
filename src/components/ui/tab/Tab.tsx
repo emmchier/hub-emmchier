@@ -44,6 +44,12 @@ interface TabProps {
   /** Si está definido, el cuerpo muestra siempre ese panel aunque el tab “activo” sea otro. */
   lockedBodyTabIndex?: number;
   bodyStyle?: React.CSSProperties;
+  /**
+   * Mobile only: skip scroll-down header/body collapse.
+   * Use on Resumé so inner `position: sticky` headers are not clipped
+   * (transform on the tab body breaks sticky + leaves a footer gap).
+   */
+  suppressMobileScrollCollapse?: boolean;
 }
 
 export const Tab: React.FC<TabProps> = ({
@@ -64,6 +70,7 @@ export const Tab: React.FC<TabProps> = ({
   tabListRowExtraClassName,
   lockedBodyTabIndex,
   bodyStyle,
+  suppressMobileScrollCollapse = false,
 }) => {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
   const uid = useId();
@@ -75,6 +82,7 @@ export const Tab: React.FC<TabProps> = ({
   const scrollDirection = useScrollDirection();
   const isMobile = breakpoint === 'mobile';
   const contactMobileFlushTabs = Boolean(contactMobileTabsRight && isMobile);
+  const mobileScrollCollapseEnabled = isMobile && !suppressMobileScrollCollapse;
   const tabListRowClassName = contactMobileTabsRight
     ? [
         'flex items-center w-full bg-[#112F40] px-0',
@@ -85,8 +93,8 @@ export const Tab: React.FC<TabProps> = ({
   // Calcular si el header está en top-0 (scrolleado) o top-[56px] (no scrolleado)
   // Memoizar para evitar recálculos innecesarios en cada render
   const isHeaderAtTop = useMemo(() => {
-    return Boolean(isMobile && scrollDirection === 'down');
-  }, [isMobile, scrollDirection]);
+    return Boolean(mobileScrollCollapseEnabled && scrollDirection === 'down');
+  }, [mobileScrollCollapseEnabled, scrollDirection]);
 
   // Determinar si el header está en top-0 basado en las clases pasadas
   // Si headerClasses incluye 'top-0', entonces no debemos aplicar translate-y

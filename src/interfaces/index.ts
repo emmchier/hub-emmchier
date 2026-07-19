@@ -169,3 +169,13 @@ export interface ResumeJson {
   roles: string[];
   sections: ResumeJsonSection[];
 }
+
+// ─── Social networks (emmchier Contentful space — content type "socialNetwork") ─
+
+export interface SocialNetworkItem {
+  id: string;
+  name: string; // e.g. "Linked In", "Dribbble" — display title is `${name}.`
+  slug: string; // e.g. "linked-in" — used for the ordering fallback map
+  url: string; // full URL as stored in Contentful, e.g. "https://www.linkedin.com/in/emmchier"
+  order?: number; // optional manual order set in Contentful (see SOCIAL_ORDER_FALLBACK)
+}

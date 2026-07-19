@@ -491,14 +491,21 @@ html {
   }
 }
 
-html,
-body {
-  height: 100%;
+/* Parity with Art/Design — body must grow (min-height), not lock to height:100%.
+   Locked height breaks the flex-1 → Footer mt-auto chain on short Resume sections. */
+html {
   width: 100%;
+  height: 100%;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--color-primary-background);
   overscroll-behavior: auto;
   overscroll-behavior-y: auto;
@@ -523,6 +530,168 @@ body.no-scroll {
 
 .small {
   height: 10px;
+}
+
+/* ── RoleCard (Sites) — desktop hover only ─────────────────────────────────
+   Gated by (hover: hover) + (pointer: fine) so touch never gets sticky hover. */
+.role-card {
+  --card-accent: #74bde8;
+  --card-stroke: 1px;
+  background-color: #13384d;
+  isolation: isolate;
+  transition:
+    background-color 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 550ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-card--disabled {
+  background-color: #112f40;
+}
+
+.role-card__fx {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.role-card__bloom {
+  position: absolute;
+  inset: -35%;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle at 78% 12%,
+      color-mix(in srgb, var(--card-accent) 48%, transparent) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      circle at 18% 88%,
+      color-mix(in srgb, var(--card-accent) 18%, transparent) 0%,
+      transparent 48%
+    );
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.92);
+}
+
+.role-card__shine {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    color-mix(in srgb, var(--card-accent) 28%, #ffffff 14%) 48%,
+    transparent 66%
+  );
+  transform: translateX(-140%) skewX(-20deg);
+}
+
+.role-card__edge {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent);
+  transition: opacity 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-card__title {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: var(--card-stroke) var(--card-accent);
+  paint-order: stroke fill;
+  transition:
+    color 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-text-fill-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-text-stroke-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+.role-card__url,
+.role-card__desc {
+  transition: color 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-card__icon {
+  color: #21516b !important;
+  transition:
+    color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes role-card-shine-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-140%) skewX(-20deg);
+  }
+  28% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(140%) skewX(-20deg);
+  }
+}
+
+/* Desktop (≥1266px) + mouse/trackpad only — no hover on mobile/tablet */
+@media (hover: hover) and (pointer: fine) and (min-width: 1266px) {
+  .role-card:not(.role-card--disabled):hover {
+    background-color: #1a4862;
+    transform: translateY(-10px) scale(1.004);
+    box-shadow:
+      0 14px 28px -20px color-mix(in srgb, var(--card-accent) 35%, #000),
+      0 0 0 1px color-mix(in srgb, var(--card-accent) 32%, transparent);
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__bloom {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__shine {
+    animation: role-card-shine-sweep 950ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__edge {
+    opacity: 1;
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__title {
+    color: color-mix(in srgb, var(--card-accent) 22%, transparent);
+    -webkit-text-fill-color: color-mix(in srgb, var(--card-accent) 22%, transparent);
+    -webkit-text-stroke-color: color-mix(in srgb, var(--card-accent) 88%, #fff);
+    filter: drop-shadow(
+      0 0 28px color-mix(in srgb, var(--card-accent) 55%, transparent)
+    );
+    transform: scale(1.01);
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__url,
+  .role-card:not(.role-card--disabled):hover .role-card__desc {
+    color: #e5e5e5 !important;
+  }
+
+  .role-card:not(.role-card--disabled):hover .role-card__icon {
+    color: var(--card-accent) !important;
+    transform: translate(4px, -4px);
+  }
+
+  .role-card:not(.role-card--disabled):focus-visible {
+    outline: none;
+  }
+
+  .role-card:not(.role-card--disabled):focus-visible::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 3px #74bde8;
+    pointer-events: none;
+    z-index: 2;
+  }
 }
 
 /* Universal Styles */

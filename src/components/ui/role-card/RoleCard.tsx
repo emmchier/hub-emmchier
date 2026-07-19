@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowExternalLinkIcon, Text } from '@/components';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
@@ -46,21 +47,34 @@ export const RoleCard = ({
         if (isDisabled) event.preventDefault();
       }}
       className={[
-        'group relative block h-full w-full border border-[#21516B] overflow-hidden',
-        'transition-colors duration-300',
+        'role-card group relative block h-full w-full',
         'p-[16px] md:p-[24px]',
         isDisabled
-          ? 'cursor-not-allowed bg-[#112F40]'
-          : 'cursor-pointer bg-[#13384D] hover:bg-[#1A4862]',
+          ? 'role-card--disabled cursor-not-allowed'
+          : 'cursor-pointer',
       ]
         .filter(Boolean)
         .join(' ')}
+      style={
+        {
+          '--card-accent': titleColor,
+          '--card-stroke': `${strokeWidth}px`,
+        } as CSSProperties
+      }
     >
-      <div className="relative">
-        {/* Header: URL left, external link icon right */}
+      {/* Clipped FX layer — keeps shine/bloom inside without clipping card shadow */}
+      {!isDisabled && (
+        <span className="role-card__fx" aria-hidden="true">
+          <span className="role-card__bloom" />
+          <span className="role-card__shine" />
+          <span className="role-card__edge" />
+        </span>
+      )}
+
+      <div className="relative z-1 flex h-full min-h-0 flex-col">
         <div className="relative flex items-start justify-between gap-4">
           {isDisabled ? (
-            <div className="relative inline-flex items-center justify-center border border-[#FFC642] text-[#FFC642] bg-[#4A463C] px-[12px] h-[32px] text-[16px]">
+            <div className="relative inline-flex h-[32px] items-center justify-center border border-[#FFC642] bg-[#4A463C] px-[12px] text-[16px] text-[#FFC642]">
               {comingSoonLabel}
             </div>
           ) : (
@@ -68,50 +82,40 @@ export const RoleCard = ({
               type="title"
               size="m"
               weight="regular"
-              className="relative text-title-mobile-S lg:text-title-tablet-M xl:text-title-desk-M text-[#569CC3] group-hover:text-[#E5E5E5] transition-colors duration-300"
+              className="role-card__url relative text-title-mobile-S text-[#569CC3] lg:text-title-tablet-M xl:text-title-desk-M"
             >
               {url}
             </Text>
           )}
           {!isDisabled && (
-            <ArrowExternalLinkIcon
-              color="#21516B"
-              className="relative shrink-0 w-[32px] h-[32px] transition-colors duration-300 group-hover:text-[#E5E5E5]"
-            />
+            <ArrowExternalLinkIcon className="role-card__icon relative h-[32px] w-[32px] shrink-0" />
           )}
         </div>
 
-        {/* Outline title */}
         <div className="relative mt-[16px]">
-          <span
-            className="relative block font-bold leading-[0.8] tracking-[-0.02em] text-[clamp(5.25rem,22vw,20rem)] md:text-[clamp(2.5rem,6.5vw,9rem)]"
-            style={{
-              color: 'transparent',
-              WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: `${strokeWidth}px ${titleColor}`,
-              paintOrder: 'stroke fill',
-            }}
-          >
+          <span className="role-card__title relative block text-[clamp(5.25rem,22vw,20rem)] font-bold leading-[0.8] tracking-[-0.02em] md:text-[clamp(2.5rem,6.5vw,9rem)]">
             {title}
           </span>
         </div>
 
-        {/* Description — 72px below title */}
-        <div className="relative mt-[72px] w-full">
-          <Text
-            type="body"
-            size="m"
-            className={[
-              'relative text-left transition-colors duration-300 w-full',
-              isDisabled
-                ? 'text-[#21516B]'
-                : 'text-[#569CC3] group-hover:text-[#E5E5E5]',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            {description}
-          </Text>
+        <div className="relative mt-auto w-full pt-[72px]">
+          <div className="relative w-full md:ml-auto md:w-[60%]">
+            <Text
+              type="body"
+              size="m"
+              weight="regular"
+              className={[
+                'role-card__desc relative w-full text-left',
+                'text-[17px]! leading-[25px]!',
+                'md:text-body-mobile-M! md:leading-[1.6]! lg:text-body-tablet-M! xl:text-body-desk-M!',
+                isDisabled ? 'text-[#21516B]' : 'text-[#569CC3]',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {description}
+            </Text>
+          </div>
         </div>
       </div>
     </Link>

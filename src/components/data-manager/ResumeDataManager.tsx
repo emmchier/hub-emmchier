@@ -13,6 +13,7 @@ import type {
   ResumeCourseItem,
   ResumeStudyItem,
   ResumeLanguageItem,
+  SocialNetworkItem,
 } from '@/interfaces';
 import type { SupportedLanguage } from '@/i18n/translations';
 import { resumeYearFrom, resumeYearTo } from '@/lib/contentful-resume';
@@ -52,6 +53,8 @@ function buildResumeJson(data: ResumeData): ResumeJson {
 interface ResumeDataManagerProps {
   /** SSR-fetched resume data (always English / en-US). */
   data: ResumeData | null;
+  /** SSR-fetched Contact social network cards (not locale-aware). */
+  socialNetworks?: SocialNetworkItem[];
 }
 
 /**
@@ -61,14 +64,21 @@ interface ResumeDataManagerProps {
  * - On mount: caches the English SSR data in resumeByLang['en'].
  * - On language change to 'es': fetches /api/contentful/resume?locale=es-AR
  *   and caches in resumeByLang['es']. Subsequent switches reuse the cache.
+ * - Also seeds `socialNetworks` once from SSR (no locale variants needed).
  */
-export function ResumeDataManager({ data }: ResumeDataManagerProps) {
+export function ResumeDataManager({
+  data,
+  socialNetworks,
+}: ResumeDataManagerProps) {
   const {
     isResumeFetched,
     setResumeFetched,
     resumeByLang,
     setResumeForLang,
     setResumeJsonForLang,
+    isSocialNetworksFetched,
+    setSocialNetworks,
+    setSocialNetworksFetched,
   } = useDataStore();
   const language = useUIStore((s) => s.language);
 
@@ -85,6 +95,19 @@ export function ResumeDataManager({ data }: ResumeDataManagerProps) {
     setResumeForLang,
     setResumeFetched,
     setResumeJsonForLang,
+  ]);
+
+  // ── Seed social network cards from SSR (once per session) ────────────────
+  useEffect(() => {
+    if (isSocialNetworksFetched) return;
+    if (!socialNetworks) return;
+    setSocialNetworks(socialNetworks);
+    setSocialNetworksFetched(true);
+  }, [
+    socialNetworks,
+    isSocialNetworksFetched,
+    setSocialNetworks,
+    setSocialNetworksFetched,
   ]);
 
   // ── Fetch locale-specific data when language changes ─────────────────────

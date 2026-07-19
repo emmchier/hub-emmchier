@@ -2,32 +2,34 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { cookies } from 'next/headers';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://art.emmchier.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://emmchier.com';
 const metaImageUrl = `${siteUrl}/assets/emmchier-metatag.png`;
 
 const TEXTS = {
   en: {
-    title: 'Legal Notice | Emmanuel Chierchié',
+    title: 'Emmchier. | Legal Notice',
     description:
-      'Legal notice and terms of use for art.emmchier.com — portfolio of Emmanuel Chierchié, illustrator and digital artist.',
+      'Legal notice and terms of use for emmchier.com — personal hub and entry point to art.emmchier.com and design.emmchier.com.',
     keywords: [
       'Emmanuel Chierchié',
+      'emmchier',
       'legal notice',
       'terms of use',
+      'hub',
       'portfolio',
-      'illustrator',
     ],
   },
   es: {
-    title: 'Aviso Legal | Emmanuel Chierchié',
+    title: 'Emmchier. | Aviso Legal',
     description:
-      'Aviso legal y condiciones de uso de art.emmchier.com — portfolio de Emmanuel Chierchié, ilustrador y artista digital.',
+      'Aviso legal y condiciones de uso de emmchier.com — hub personal y punto de entrada a art.emmchier.com y design.emmchier.com.',
     keywords: [
       'Emmanuel Chierchié',
+      'emmchier',
       'aviso legal',
       'condiciones de uso',
+      'hub',
       'portfolio',
-      'ilustrador',
     ],
   },
 };
@@ -44,14 +46,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: t.title,
       description: t.description,
       url: `${siteUrl}/legals`,
-      siteName: 'Emmanuel Chierchié',
+      siteName: 'Emmchier.',
       type: 'website',
       images: [
         {
           url: metaImageUrl,
           width: 1630,
           height: 916,
-          alt: 'Emmanuel Chierchié — Illustrator & Digital Artist',
+          alt: 'Emmchier. | Portfolio',
         },
       ],
     },

@@ -5,6 +5,7 @@ import {
   ContentfulCategory,
   ResumeData,
   ResumeJson,
+  SocialNetworkItem,
 } from '@/interfaces';
 import type { SupportedLanguage } from '@/i18n/translations';
 
@@ -66,6 +67,12 @@ interface State {
   /** ATS JSON model per language — built from ResumeData when each locale is loaded. */
   resumeJsonByLang: Partial<Record<SupportedLanguage, ResumeJson>>;
   setResumeJsonForLang: (lang: SupportedLanguage, json: ResumeJson) => void;
+
+  // ─── Social networks (Contact / Say Hello) ────────────────────────────────
+  socialNetworks: SocialNetworkItem[];
+  setSocialNetworks: (items: SocialNetworkItem[]) => void;
+  isSocialNetworksFetched: boolean;
+  setSocialNetworksFetched: (fetched: boolean) => void;
 }
 
 const getCategorySlug = (category: ContentfulCategory): string => {
@@ -85,6 +92,8 @@ export const useDataStore = create<State>((set, get) => ({
   resumeByLang: {},
   isResumeFetched: false,
   resumeJsonByLang: {},
+  socialNetworks: [],
+  isSocialNetworksFetched: false,
 
   // ─── fetchingCategories ───────────────────────────────────────────────────
   setFetchingCategory: (key, isFetching) =>
@@ -179,4 +188,9 @@ export const useDataStore = create<State>((set, get) => ({
     set((state) => ({
       resumeJsonByLang: { ...state.resumeJsonByLang, [lang]: json },
     })),
+
+  // ─── social networks ──────────────────────────────────────────────────────
+  setSocialNetworks: (items) => set({ socialNetworks: items }),
+  setSocialNetworksFetched: (fetched) =>
+    set({ isSocialNetworksFetched: fetched }),
 }));

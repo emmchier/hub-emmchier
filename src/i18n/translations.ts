@@ -9,7 +9,7 @@ export type SupportedLanguage = 'en' | 'es';
 export const translations = {
   en: {
     // Nav / Chrome
-    contact: 'Contact',
+    contact: 'Contact.',
     backToHome: 'Back to home',
     collapse: 'Collapse',
     expand: 'Expand',
@@ -54,7 +54,7 @@ export const translations = {
     // Sites tab
     sitesIntroGreeting: "Hi, I'm",
     sitesIntroName: 'Emmanuel',
-    sitesIntroRoles: 'illustrator, UX/UI Designer & UI Developer',
+    sitesIntroRoles: 'illustrator, UX/UI Designer, UI Developer',
     sitesIntroBody:
       'Each section leads to a dedicated site, focused on a specific part of my creative process. Feel free to explore and jump into whatever catches your eye.',
     sitesArtDescription:
@@ -64,7 +64,7 @@ export const translations = {
   },
   es: {
     // Nav / Chrome
-    contact: 'Contacto',
+    contact: 'Contacto.',
     backToHome: 'Volver al inicio',
     collapse: 'Colapsar',
     expand: 'Expandir',
@@ -109,7 +109,7 @@ export const translations = {
     // Sites tab
     sitesIntroGreeting: 'Hola, soy',
     sitesIntroName: 'Emmanuel',
-    sitesIntroRoles: 'ilustrador, diseñador UX/UI & desarrollador UI',
+    sitesIntroRoles: 'ilustrador, diseñador UX/UI, desarrollador UI',
     sitesIntroBody:
       'Cada sección lleva a un sitio dedicado, enfocado en una parte específica de mi proceso creativo. Explorá libremente y entrá en lo que te llame la atención.',
     sitesArtDescription:

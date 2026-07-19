@@ -2,17 +2,18 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { BascatIcon } from '@/components';
-import { useBreakpoint } from '@/hooks/useBreakpoint';
+import type { BascatAvatarVariant } from '@/hooks/useBascatAvatar';
 
 interface AvatarProps {
   className?: string;
-  /** Cuando true muestra la foto de la persona (Resumé); cuando false muestra Bascat (Say hello). */
+  /** Cuando true muestra la foto de la persona (Resumé); cuando false muestra Bascat (Sites / Contact). */
   showPersonImage?: boolean;
   /** En cada cambio de tab se reproduce la animación de moneda. */
   activeTabIndex?: number;
   /** URL de la imagen desde Contentful. Si no se pasa usa el fallback local. */
   personImageUrl?: string;
+  /** Variante de Bascat a mostrar (ver useBascatAvatar). Default: 'acuarela'. */
+  bascatVariant?: BascatAvatarVariant;
 }
 
 export const Avatar = ({
@@ -20,11 +21,10 @@ export const Avatar = ({
   showPersonImage = false,
   activeTabIndex = 0,
   personImageUrl,
+  bascatVariant = 'acuarela',
 }: AvatarProps) => {
   const [spinEpoch, setSpinEpoch] = useState(0);
   const skipFirstSpin = useRef(true);
-  const { breakpoint } = useBreakpoint();
-  const isMobile = breakpoint === 'mobile';
 
   useEffect(() => {
     if (skipFirstSpin.current) {
@@ -35,7 +35,6 @@ export const Avatar = ({
   }, [activeTabIndex]);
 
   const flipDeg = showPersonImage ? 180 : 0;
-  const bascatClassName = isMobile ? '' : 'translate-y-px';
 
   return (
     <div
@@ -73,18 +72,18 @@ export const Avatar = ({
           }}
         >
           <div
-            className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-full bg-[#FFC642]"
+            className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-full bg-[#13384D]"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               transform: 'translateZ(2px)',
             }}
           >
-            <BascatIcon
-              color="#000000"
-              width={isMobile ? 32 : undefined}
-              height={isMobile ? 32 : undefined}
-              className={bascatClassName}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/assets/avatar-${bascatVariant}.svg`}
+              alt="Bascat"
+              className="h-full w-full object-cover"
             />
           </div>
 

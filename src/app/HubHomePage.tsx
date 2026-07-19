@@ -49,6 +49,7 @@ import {
   shareOnX,
 } from '@/utils/functions';
 import { useEntranceAnimation } from '@/hooks/useEntranceAnimation';
+import { useBascatAvatar } from '@/hooks/useBascatAvatar';
 import {
   HUB_HORIZONTAL_PADDING,
   HUB_TAB_BOTTOM_SPACING,
@@ -212,6 +213,19 @@ export default function HubHomePage() {
   const { openBottomSheet } = useUIStore();
   const t = useTranslation();
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+  const bascatVariant = useBascatAvatar({
+    isResumeTabActive: showPersonAvatar,
+    isAvatarModalOpen,
+  });
+
+  // Fill-height chain on Contact / Resume tabs (parity with Art).
+  // Driven by activeTabIndex — Hub uses history.replaceState for tab URLs, so
+  // usePathname() can lag behind and break the flex-1 → Footer mt-auto chain.
+  const isHubFillRoute =
+    activeTabIndex === TAB_CONTACT || activeTabIndex === TAB_RESUME;
+
+  // ── Contact social network cards (emmchier resume space) ────────────────────
+  const socialNetworks = useDataStore((s) => s.socialNetworks);
 
   // ── Resume data (locale-aware) ──────────────────────────────────────────────
   const resumeByLang = useDataStore((s) => s.resumeByLang);
@@ -326,20 +340,34 @@ export default function HubHomePage() {
   return (
     <>
       <div
-        className={`relative flex w-full flex-col ${HUB_HORIZONTAL_PADDING}`}
+        className={[
+          'relative flex w-full min-w-0 max-w-full flex-col overflow-x-clip',
+          isHubFillRoute ? 'min-h-0 flex-1' : '',
+          HUB_HORIZONTAL_PADDING,
+        ]
+          .filter(Boolean)
+          .join(' ')}
       >
-        {/* ── Wave header — "art. / emmchier." with neon entrance animation ── */}
-        <div className="relative w-full pt-[24px] md:pt-[32px] pb-[8px] md:pb-0">
-          <Header />
-        </div>
+        {/* Wave header only on Sites — Contact/Resume match Art ContactPageClient
+            (Tab starts at top) so Resume minHeight pins the Footer. */}
+        {activeTabIndex === TAB_SITES && (
+          <div className="relative w-full shrink-0 pt-[24px] md:pt-[32px] pb-[8px] md:pb-0">
+            <Header />
+          </div>
+        )}
 
         <Tab
-          className="w-full"
+          className={
+            isHubFillRoute
+              ? 'flex w-full min-w-0 max-w-full min-h-0 flex-1 flex-col'
+              : 'w-full'
+          }
           contactMobileTabsRight
           mobileBodyMarginTop="24px"
           mobileIndicatorBottomClass="bottom-[6px]"
           desktopBodyMarginTop="16px"
           showSkeletonOverride={showTabContentSkeleton}
+          suppressMobileScrollCollapse={activeTabIndex === TAB_RESUME}
           headerSkeleton={
             <div className="relative w-full h-full pt-[12px] md:pt-0 flex items-center justify-between gap-[16px]">
               <div className="flex items-center gap-2">
@@ -352,7 +380,11 @@ export default function HubHomePage() {
               </div>
             </div>
           }
-          bodyClasses="overflow-visible"
+          bodyClasses={
+            isHubFillRoute
+              ? 'overflow-visible flex-1 flex flex-col min-h-0'
+              : 'overflow-visible'
+          }
           defaultActiveIndex={activeTabIndex}
           onTabChange={(index) => {
             setActiveTabIndex(index);
@@ -381,6 +413,7 @@ export default function HubHomePage() {
                       showPersonImage={showPersonAvatar}
                       activeTabIndex={activeTabIndex}
                       personImageUrl={resumeImage}
+                      bascatVariant={bascatVariant}
                     />
                   }
                   content={
@@ -389,6 +422,7 @@ export default function HubHomePage() {
                       showPersonImage={showPersonAvatar}
                       activeTabIndex={activeTabIndex}
                       personImageUrl={resumeImage}
+                      bascatVariant={bascatVariant}
                     />
                   }
                 />
@@ -400,16 +434,10 @@ export default function HubHomePage() {
           <TabItem label={t.sites}>
             <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
               {/* Skeleton overlay — fades out once skeleton session ends */}
-              {activeTabIndex === TAB_SITES && (
+              {activeTabIndex === TAB_SITES && showTabContentSkeleton && (
                 <div
-                  className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
+                  className="absolute inset-0 z-30 overflow-hidden bg-primary-background pointer-events-none"
                   aria-hidden="true"
-                  style={{
-                    opacity: showTabContentSkeleton ? 1 : 0,
-                    transition: showTabContentSkeleton
-                      ? 'none'
-                      : 'opacity 500ms ease-out',
-                  }}
                 >
                   <div className="w-full">
                     <SitesTabSkeleton />
@@ -420,7 +448,7 @@ export default function HubHomePage() {
               <div>
                 {/* 3-column layout: intro | art card | design card */}
                 <div
-                  className={`flex flex-col md:flex-row md:items-stretch md:gap-[8px] pt-0 md:pt-[24px] gap-4 ${HUB_TAB_INNER_BOTTOM_SPACING}`}
+                  className={`flex flex-col md:flex-row md:items-stretch md:gap-[8px] md:overflow-visible pt-0 md:pt-[24px] gap-4 ${HUB_TAB_INNER_BOTTOM_SPACING}`}
                 >
                   {/* Col 1 — Intro (33.33%) */}
                   <div className="w-full md:w-1/3">
@@ -445,6 +473,7 @@ export default function HubHomePage() {
                           <Text
                             type="body"
                             weight="regular"
+                            color="selected"
                             className="text-[25px]! leading-[1.2]"
                           >
                             {t.sitesIntroRoles}
@@ -462,8 +491,11 @@ export default function HubHomePage() {
                   </div>
 
                   {/* Col 2 — art.emmchier.com (33.33%) */}
-                  <div className="w-full md:w-1/3 md:flex">
-                    <FadeInCard index={1} className="h-full w-full">
+                  <div className="w-full md:w-1/3 md:flex md:overflow-visible">
+                    <FadeInCard
+                      index={1}
+                      className="h-full w-full md:overflow-visible"
+                    >
                       <RoleCard
                         ariaLabel="Visit art.emmchier.com"
                         url="art.emmchier.com"
@@ -477,8 +509,11 @@ export default function HubHomePage() {
                   </div>
 
                   {/* Col 3 — design.emmchier.com */}
-                  <div className="w-full md:w-1/3 md:flex">
-                    <FadeInCard index={2} className="h-full w-full">
+                  <div className="w-full md:w-1/3 md:flex md:overflow-visible">
+                    <FadeInCard
+                      index={2}
+                      className="h-full w-full md:overflow-visible"
+                    >
                       <RoleCard
                         ariaLabel="Visit design.emmchier.com"
                         url="design.emmchier.com"
@@ -498,16 +533,10 @@ export default function HubHomePage() {
           {/* ── Tab 1: Contact. ───────────────────────────────────────────── */}
           <TabItem label={t.contact}>
             <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
-              {activeTabIndex === TAB_CONTACT && (
+              {activeTabIndex === TAB_CONTACT && showTabContentSkeleton && (
                 <div
-                  className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
+                  className="absolute inset-0 z-30 overflow-hidden bg-primary-background pointer-events-none"
                   aria-hidden="true"
-                  style={{
-                    opacity: showTabContentSkeleton ? 1 : 0,
-                    transition: showTabContentSkeleton
-                      ? 'none'
-                      : 'opacity 500ms ease-out',
-                  }}
                 >
                   <div className="w-full">
                     <SayHelloTabSkeleton />
@@ -552,50 +581,18 @@ export default function HubHomePage() {
                     return `https://${trimmed.replace(/^\/+/, '')}`;
                   };
 
+                  // Social cards from Contentful (resume space, "socialNetwork").
+                  // Email is the one fixed, hardcoded slot that always leads the grid.
                   const items: ContactItem[] = [
                     { type: 'email', email: 'emmchierchie@gmail.com' },
-                    {
-                      type: 'link',
-                      title: 'Linked In.',
-                      subTitle: 'linkedin.com/in/emmchier',
-                      href: 'linkedin.com/in/emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'Dribbble.',
-                      subTitle: 'dribbble.com/emmchier',
-                      href: 'dribbble.com/emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'Instagram.',
-                      subTitle: 'instagram.com/emmchier',
-                      href: 'instagram.com/emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'Github.',
-                      subTitle: 'github.com/emmchier',
-                      href: 'github.com/emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'Behance.',
-                      subTitle: 'behance.net/emmchier',
-                      href: 'behance.net/emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'Medium.',
-                      subTitle: 'medium.com/@emmchier',
-                      href: 'medium.com/@emmchier',
-                    },
-                    {
-                      type: 'link',
-                      title: 'X.',
-                      subTitle: 'x.com/emmchier',
-                      href: 'x.com/emmchier',
-                    },
+                    ...socialNetworks.map(
+                      (sn): ContactItem => ({
+                        type: 'link',
+                        title: `${sn.name}.`,
+                        subTitle: sn.url,
+                        href: sn.url,
+                      })
+                    ),
                   ];
 
                   const chunkSize = SLOT_AREAS.length;
@@ -757,24 +754,25 @@ export default function HubHomePage() {
 
           {/* ── Tab 2: Resumé. ────────────────────────────────────────────── */}
           <TabItem label={t.resume}>
-            <div className={`relative ${HUB_TAB_BOTTOM_SPACING}`}>
-              {activeTabIndex === TAB_RESUME && (
+            {/* flex-1 only — no 100dvh minHeight. LayoutChrome shell is min-h-dvh;
+                a panel minHeight would grow the document past the viewport and
+                push Footer below the fold (or leave a gap under it). */}
+            <div
+              className={`relative flex min-h-0 flex-1 flex-col ${HUB_TAB_BOTTOM_SPACING}`}
+            >
+              {activeTabIndex === TAB_RESUME && showTabContentSkeleton && (
                 <div
-                  className="absolute inset-0 z-30 bg-primary-background pointer-events-none"
+                  className="absolute inset-0 z-30 overflow-hidden bg-primary-background pointer-events-none"
                   aria-hidden="true"
-                  style={{
-                    opacity: showTabContentSkeleton ? 1 : 0,
-                    transition: showTabContentSkeleton
-                      ? 'none'
-                      : 'opacity 500ms ease-out',
-                  }}
                 >
                   <div className="w-full">
                     <ResumeTabSkeleton isMobile={!isResumeDesktopLayout} />
                   </div>
                 </div>
               )}
-              <div className={HUB_TAB_INNER_BOTTOM_SPACING}>
+              <div
+                className={`flex min-h-0 flex-1 flex-col ${HUB_TAB_INNER_BOTTOM_SPACING}`}
+              >
                 {!isResumeDesktopLayout ? (
                   <>
                     <div
@@ -817,7 +815,7 @@ export default function HubHomePage() {
                       </div>
                       <div
                         ref={resumeChipsScrollRef}
-                        className="scrollbar-hide overflow-x-auto overflow-y-hidden w-full min-w-0 pt-2 pb-3 scroll-smooth"
+                        className="scrollbar-hide overflow-x-auto overflow-y-hidden w-full min-w-0 max-w-full pt-2 pb-3 scroll-smooth"
                         style={{
                           WebkitOverflowScrolling: 'touch',
                           touchAction: 'pan-x',
@@ -858,7 +856,7 @@ export default function HubHomePage() {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4 flex flex-1 flex-col">
                       <ResumeTabContent
                         desktopLayout={false}
                         activeCategory={activeResumeCategory}

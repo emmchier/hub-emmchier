@@ -8,7 +8,7 @@ function SiteCardSkeleton({ isDesktop }: { isDesktop: boolean }) {
   return (
     <div
       className={[
-        'relative w-full h-full border border-[#21516B] bg-[#13384D]',
+        'relative w-full h-full bg-[#13384D]',
         isDesktop ? 'p-[24px]' : 'p-[16px]',
       ].join(' ')}
     >
@@ -28,11 +28,13 @@ function SiteCardSkeleton({ isDesktop }: { isDesktop: boolean }) {
         />
       </div>
 
-      {/* Description — 72px below title */}
-      <div className="relative mt-[72px] flex flex-col gap-[8px] w-full">
-        <Skeleton className="rounded-none h-[13px] w-full" />
-        <Skeleton className="rounded-none h-[13px] w-[88%]" />
-        <Skeleton className="rounded-none h-[13px] w-[70%]" />
+      {/* Description — full width on mobile; bottom-right 60% from tablet up */}
+      <div className="relative mt-auto w-full pt-[72px]">
+        <div className="relative ml-0 flex w-full flex-col gap-[8px] md:ml-auto md:w-[60%]">
+          <Skeleton className="rounded-none h-[13px] w-full" />
+          <Skeleton className="rounded-none h-[13px] w-[88%]" />
+          <Skeleton className="rounded-none h-[13px] w-[70%]" />
+        </div>
       </div>
     </div>
   );

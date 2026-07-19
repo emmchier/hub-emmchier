@@ -13,7 +13,15 @@
  *     └── sections[]     (refs to Section entries)
  *           └── items[]  (refs to workExperience / courses / studies / languages entries)
  *
- * A single getEntries call with include:5 resolves the full tree in one request.
+ *   socialNetwork (7 entries — Contact / Say Hello)
+ *     ├── name    (e.g. "Linked In")
+ *     ├── slug    (e.g. "linked-in")
+ *     ├── url     (full URL, e.g. "https://www.linkedin.com/in/emmchier")
+ *     └── order   (Integer, optional — not populated yet, see SOCIAL_ORDER_FALLBACK)
+ *
+ * A single getEntries call with include:5 resolves the full `resume` tree in
+ * one request. `socialNetwork` entries are fetched separately (flat list, no
+ * includes needed).
  */
 
 import { createClient } from 'contentful';
@@ -25,6 +33,7 @@ import type {
   ResumeStudyItem,
   ResumeLanguageItem,
   ResumeSection,
+  SocialNetworkItem,
 } from '@/interfaces';
 
 // ─── Client ─────────────────────────────────────────────────────────────────
@@ -262,6 +271,69 @@ export async function fetchResumeData(
     return { roles, image: imageUrl, sections };
   } catch {
     return null;
+  }
+}
+
+/**
+ * Say Hello grid order fallback, keyed by Contentful `slug`.
+ *
+ * The `socialNetwork` content type has an `order` (Integer) field meant to
+ * drive this ordering from Contentful, but it isn't populated on any entry
+ * yet — until it is, this map guarantees the exact grid order the Contact
+ * page currently ships with. Once an editor sets `order` on an entry in
+ * Contentful, that numeric value wins over this fallback for that entry.
+ */
+const SOCIAL_ORDER_FALLBACK: Record<string, number> = {
+  'linked-in': 1,
+  dribbble: 2,
+  instagram: 3,
+  github: 4,
+  behance: 5,
+  medium: 6,
+  x: 7,
+};
+
+/** Strips "https://", "http://" and a leading "www." for display + link building. */
+function stripProtocolAndWww(url: string): string {
+  return url.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+}
+
+/**
+ * Fetches all `socialNetwork` entries from the resume space, sorted by the
+ * Contentful `order` field when set, falling back to `SOCIAL_ORDER_FALLBACK`
+ * (by slug) otherwise. `url` is normalized (no protocol, no "www.") so it can
+ * be used directly as both the display subtitle and the link href.
+ *
+ * Returns [] if Contentful is unreachable or not configured.
+ */
+export async function fetchSocialNetworks(): Promise<SocialNetworkItem[]> {
+  if (!resumeClient) return [];
+
+  try {
+    const response = await resumeClient.getEntries({
+      content_type: 'socialNetwork',
+    });
+
+    return response.items
+      .map(
+        (entry): SocialNetworkItem => ({
+          id: entry.sys.id,
+          name: (entry.fields?.name as string) ?? '',
+          slug: (entry.fields?.slug as string) ?? '',
+          url: stripProtocolAndWww((entry.fields?.url as string) ?? ''),
+          order:
+            typeof entry.fields?.order === 'number'
+              ? entry.fields.order
+              : undefined,
+        })
+      )
+      .sort((a, b) => {
+        const orderA = a.order ?? SOCIAL_ORDER_FALLBACK[a.slug] ?? 999;
+        const orderB = b.order ?? SOCIAL_ORDER_FALLBACK[b.slug] ?? 999;
+        return orderA - orderB;
+      });
+  } catch {
+    return [];
   }
 }
 

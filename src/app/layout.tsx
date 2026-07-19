@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { fontFamily } from '@/config/fonts';
 import { ResumeDataManager } from '@/components/data-manager/ResumeDataManager';
 import { LayoutChrome } from '@/components/layout/LayoutChrome';
-import { fetchResumeData } from '@/lib/contentful-resume';
+import { fetchResumeData, fetchSocialNetworks } from '@/lib/contentful-resume';
 
 import './globals.css';
 
@@ -14,34 +14,40 @@ const metaImageUrl = `${siteUrl}/assets/emmchier-metatag.png`;
 
 const SITE_TEXTS = {
   en: {
-    title: 'Emmanuel Chierchié — Illustrator, UX Designer & Developer',
+    title: 'Emmchier. | Portfolio',
     description:
-      'Hub of Emmanuel Chierchié (@emmchier) — illustrator, UX/UI designer and UI developer. Explore his art portfolio and design portfolio.',
+      'Personal hub of Emmanuel Chierchié (@emmchier) — entry point to art.emmchier.com (illustration) and design.emmchier.com (UX/UI & UI development). Contact and resumé included.',
     keywords: [
       'Emmanuel Chierchié',
       'emmchier',
+      'hub',
+      'portfolio',
       'illustrator',
       'UX designer',
       'UI developer',
-      'digital art',
-      'portfolio',
+      'art.emmchier.com',
+      'design.emmchier.com',
       'contact',
+      'resume',
     ],
     locale: 'en_US',
   },
   es: {
-    title: 'Emmanuel Chierchié — Ilustrador, Diseñador UX & Desarrollador',
+    title: 'Emmchier. | Portfolio',
     description:
-      'Hub de Emmanuel Chierchié (@emmchier) — ilustrador, diseñador UX/UI y desarrollador UI. Explorá su portfolio de arte y diseño.',
+      'Hub personal de Emmanuel Chierchié (@emmchier) — punto de entrada a art.emmchier.com (ilustración) y design.emmchier.com (UX/UI y desarrollo UI). Incluye contacto y currículum.',
     keywords: [
       'Emmanuel Chierchié',
       'emmchier',
+      'hub',
+      'portfolio',
       'ilustrador',
       'diseñador UX',
       'desarrollador UI',
-      'arte digital',
-      'portfolio',
+      'art.emmchier.com',
+      'design.emmchier.com',
       'contacto',
+      'currículum',
     ],
     locale: 'es_AR',
   },
@@ -65,7 +71,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: t.title,
       description: t.description,
       url: siteUrl,
-      siteName: 'Emmanuel Chierchié',
+      siteName: 'Emmchier.',
       type: 'website',
       locale: t.locale,
       images: [{ url: metaImageUrl, width: 1630, height: 916, alt: t.title }],
@@ -85,7 +91,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const resumeData = await fetchResumeData();
+  const [resumeData, socialNetworks] = await Promise.all([
+    fetchResumeData(),
+    fetchSocialNetworks(),
+  ]);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -106,6 +115,7 @@ export default async function RootLayout({
           'https://x.com/emmchier',
           'https://medium.com/@emmchier',
           'https://art.emmchier.com',
+          'https://design.emmchier.com',
         ],
         jobTitle: 'Illustrator, UX Designer & UI Developer',
         description:
@@ -115,8 +125,9 @@ export default async function RootLayout({
         '@type': 'WebSite',
         '@id': `${siteUrl}/#website`,
         url: siteUrl,
-        name: 'Emmanuel Chierchié',
-        description: 'Hub of Emmanuel Chierchié (@emmchier).',
+        name: 'Emmchier. | Portfolio',
+        description:
+          'Personal hub of Emmanuel Chierchié (@emmchier) — entry point to art.emmchier.com and design.emmchier.com.',
         author: { '@id': `${siteUrl}/#person` },
         inLanguage: ['en-US', 'es-AR'],
       },
@@ -124,8 +135,9 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" translate="no" suppressHydrationWarning>
       <head>
+        <meta name="google" content="notranslate" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -154,9 +166,12 @@ export default async function RootLayout({
         <main
           id="main-content"
           role="main"
-          className="flex flex-col min-h-screen"
+          className="flex w-full min-w-0 max-w-full flex-col overflow-x-clip min-h-dvh"
         >
-          <ResumeDataManager data={resumeData} />
+          <ResumeDataManager
+            data={resumeData}
+            socialNetworks={socialNetworks}
+          />
           <LayoutChrome>{children}</LayoutChrome>
         </main>
       </body>

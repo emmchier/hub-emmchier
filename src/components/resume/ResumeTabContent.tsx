@@ -587,7 +587,7 @@ export function ResumeTabContent({
   // ── Desktop layout ────────────────────────────────────────────────────────
   if (isDesktop) {
     const handleCopyLink = async () => {
-      await copyLink('/contact/resume/work-experience');
+      await copyLink('/resume/work-experience');
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     };
@@ -609,29 +609,27 @@ export function ResumeTabContent({
       {
         value: 'linkedin',
         label: 'Share on LinkedIn',
-        onClick: () => shareOnLinkedIn('/contact/resume/work-experience'),
+        onClick: () => shareOnLinkedIn('/resume/work-experience'),
       },
       {
         value: 'facebook',
         label: 'Share on Facebook',
-        onClick: () => shareOnFacebook('/contact/resume/work-experience'),
+        onClick: () => shareOnFacebook('/resume/work-experience'),
       },
       {
         value: 'whatsapp',
         label: 'Share on WhatsApp',
-        onClick: () =>
-          shareOnWhatsApp('/contact/resume/work-experience', 'Resumé'),
+        onClick: () => shareOnWhatsApp('/resume/work-experience', 'Resumé'),
       },
       {
         value: 'threads',
         label: 'Share on Threads',
-        onClick: () =>
-          shareOnThreads('/contact/resume/work-experience', 'Resumé'),
+        onClick: () => shareOnThreads('/resume/work-experience', 'Resumé'),
       },
       {
         value: 'x',
         label: 'Share on X',
-        onClick: () => shareOnX('/contact/resume/work-experience', 'Resumé'),
+        onClick: () => shareOnX('/resume/work-experience', 'Resumé'),
       },
     ];
 

@@ -54,9 +54,9 @@ export const translations = {
     // Sites tab
     sitesIntroGreeting: "Hi, I'm",
     sitesIntroName: 'Emmanuel',
-    sitesIntroRoles: 'illustrator, UX/UI Designer, UI Developer',
+    sitesIntroRoles: 'Illustrator, UX/UI Designer, Frontend Developer',
     sitesIntroBody:
-      'Each section leads to a dedicated site, focused on a specific part of my creative process. Feel free to explore and jump into whatever catches your eye.',
+      'All my work as an illustrator and painter lives at art.emmchier. The UX/UI design portfolio is on its way.',
     sitesArtDescription:
       'Illustrations, paintings, characters, sketchbooks and books. Original work organized in series and collections.',
     sitesDesignDescription:
@@ -109,9 +109,9 @@ export const translations = {
     // Sites tab
     sitesIntroGreeting: 'Hola, soy',
     sitesIntroName: 'Emmanuel',
-    sitesIntroRoles: 'ilustrador, diseñador UX/UI, desarrollador UI',
+    sitesIntroRoles: 'Ilustrador, Diseñador UX/UI, Desarrollador Frontend',
     sitesIntroBody:
-      'Cada sección lleva a un sitio dedicado, enfocado en una parte específica de mi proceso creativo. Explorá libremente y entrá en lo que te llame la atención.',
+      'Todo mi trabajo como ilustrador y pintor vive en art.emmchier. El portfolio de diseño UX/UI está en camino.',
     sitesArtDescription:
       'Ilustraciones, pinturas, personajes, sketchbooks y libros. Trabajo original organizado en series y colecciones.',
     sitesDesignDescription:

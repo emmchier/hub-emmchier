@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowExternalLinkIcon, Text } from '@/components';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface RoleCardProps {
   url: string;
@@ -13,7 +14,6 @@ interface RoleCardProps {
   link?: string;
   state?: 'enabled' | 'disabled';
   ariaLabel: string;
-  comingSoonLabel?: string;
 }
 
 export const RoleCard = ({
@@ -24,11 +24,11 @@ export const RoleCard = ({
   link,
   state = 'enabled',
   ariaLabel,
-  comingSoonLabel = 'Coming Soon',
 }: RoleCardProps) => {
   const { breakpoint } = useBreakpoint();
   const isDesktop = breakpoint !== 'mobile';
   const strokeWidth = isDesktop ? 3 : 1;
+  const t = useTranslation();
 
   const isDisabled = state === 'disabled';
   const href = link || '#';
@@ -73,20 +73,24 @@ export const RoleCard = ({
 
       <div className="relative z-1 flex h-full min-h-0 flex-col">
         <div className="relative flex items-start justify-between gap-4">
-          {isDisabled ? (
-            <div className="relative inline-flex h-[32px] items-center justify-center border border-[#FFC642] bg-[#4A463C] px-[12px] text-[16px] text-[#FFC642]">
-              {comingSoonLabel}
-            </div>
-          ) : (
+          <div className="flex items-center gap-[8px]">
             <Text
               type="title"
               size="m"
               weight="regular"
-              className="role-card__url relative text-title-mobile-S text-[#569CC3] lg:text-title-tablet-M xl:text-title-desk-M"
+              className={[
+                'role-card__url relative text-title-mobile-S lg:text-title-tablet-M xl:text-title-desk-M',
+                isDisabled ? 'text-[#21516B]!' : 'text-[#569CC3]!',
+              ].join(' ')}
             >
               {url}
             </Text>
-          )}
+            {isDisabled && (
+              <span className="relative inline-flex shrink-0 items-center border border-[#7A5C00] bg-[#2A2000] px-[7px] py-[3px] text-[10px] font-semibold uppercase tracking-widest text-[#D4A017]">
+                {t.comingSoon}
+              </span>
+            )}
+          </div>
           {!isDisabled && (
             <ArrowExternalLinkIcon className="role-card__icon relative h-[32px] w-[32px] shrink-0" />
           )}
@@ -108,7 +112,7 @@ export const RoleCard = ({
                 'role-card__desc relative w-full text-left',
                 'text-[17px]! leading-[25px]!',
                 'md:text-body-mobile-M! md:leading-[1.6]! lg:text-body-tablet-M! xl:text-body-desk-M!',
-                isDisabled ? 'text-[#21516B]' : 'text-[#569CC3]',
+                isDisabled ? 'text-[#21516B]!' : 'text-[#569CC3]!',
               ]
                 .filter(Boolean)
                 .join(' ')}

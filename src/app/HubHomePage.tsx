@@ -476,7 +476,23 @@ export default function HubHomePage() {
                             color="selected"
                             className="text-[25px]! leading-[1.2]"
                           >
-                            {t.sitesIntroRoles}
+                            {(() => {
+                              const lastWord =
+                                language === 'es'
+                                  ? 'Desarrollador Frontend'
+                                  : 'Frontend Developer';
+                              const prefix = t.sitesIntroRoles.slice(
+                                0,
+                                t.sitesIntroRoles.lastIndexOf(lastWord)
+                              );
+                              return (
+                                <>
+                                  {prefix}
+                                  <br className="hidden md:block" />
+                                  {lastWord}
+                                </>
+                              );
+                            })()}
                           </Text>
                         </div>
                         <Text
@@ -515,13 +531,12 @@ export default function HubHomePage() {
                       className="h-full w-full md:overflow-visible"
                     >
                       <RoleCard
-                        ariaLabel="Visit design.emmchier.com"
+                        ariaLabel="design.emmchier.com — coming soon"
                         url="design.emmchier.com"
                         title="design."
                         colorTitle="#67CFCB"
-                        link="https://design.emmchier.com"
                         description={t.sitesDesignDescription}
-                        state="enabled"
+                        state="disabled"
                       />
                     </FadeInCard>
                   </div>

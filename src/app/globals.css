@@ -564,12 +564,12 @@ body.no-scroll {
   background:
     radial-gradient(
       circle at 78% 12%,
-      color-mix(in srgb, var(--card-accent) 48%, transparent) 0%,
+      color-mix(in srgb, var(--card-accent) 16%, transparent) 0%,
       transparent 52%
     ),
     radial-gradient(
       circle at 18% 88%,
-      color-mix(in srgb, var(--card-accent) 18%, transparent) 0%,
+      color-mix(in srgb, var(--card-accent) 6%, transparent) 0%,
       transparent 48%
     );
   transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -640,20 +640,11 @@ body.no-scroll {
 /* Desktop (≥1266px) + mouse/trackpad only — no hover on mobile/tablet */
 @media (hover: hover) and (pointer: fine) and (min-width: 1266px) {
   .role-card:not(.role-card--disabled):hover {
-    background-color: #1a4862;
-    transform: translateY(-10px) scale(1.004);
+    background-color: #183f54;
+    transform: translateY(-4px);
     box-shadow:
-      0 14px 28px -20px color-mix(in srgb, var(--card-accent) 35%, #000),
-      0 0 0 1px color-mix(in srgb, var(--card-accent) 32%, transparent);
-  }
-
-  .role-card:not(.role-card--disabled):hover .role-card__bloom {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .role-card:not(.role-card--disabled):hover .role-card__shine {
-    animation: role-card-shine-sweep 950ms cubic-bezier(0.22, 1, 0.36, 1);
+      0 10px 24px -16px color-mix(in srgb, var(--card-accent) 22%, #000),
+      0 0 0 1px color-mix(in srgb, var(--card-accent) 26%, transparent);
   }
 
   .role-card:not(.role-card--disabled):hover .role-card__edge {
@@ -661,13 +652,7 @@ body.no-scroll {
   }
 
   .role-card:not(.role-card--disabled):hover .role-card__title {
-    color: color-mix(in srgb, var(--card-accent) 22%, transparent);
-    -webkit-text-fill-color: color-mix(in srgb, var(--card-accent) 22%, transparent);
-    -webkit-text-stroke-color: color-mix(in srgb, var(--card-accent) 88%, #fff);
-    filter: drop-shadow(
-      0 0 28px color-mix(in srgb, var(--card-accent) 55%, transparent)
-    );
-    transform: scale(1.01);
+    -webkit-text-stroke-color: color-mix(in srgb, var(--card-accent) 95%, #fff);
   }
 
   .role-card:not(.role-card--disabled):hover .role-card__url,

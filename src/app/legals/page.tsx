@@ -69,8 +69,19 @@ export default function LegalsPage() {
       <div className="max-w-6xl mx-auto">
         <div className="w-full flex justify-center pt-[24px] pb-[72px]">
           <div className="w-full max-w-2xl mx-auto space-y-8 content-list">
-            {/* Back button — fixed 16px from top-left (Hub has no fixed navbar), survives scroll */}
-            <div className="fixed left-[16px] top-[16px] z-50">
+            {/* Back button — mobile: in-flow above title; desktop: fixed top-left */}
+            <div className="md:hidden pb-[8px]">
+              <Button
+                ariaLabel="Go back"
+                iconButton
+                size="m"
+                className="w-[48px]! h-[48px]!"
+                style={{ backgroundColor: '#173B4F' }}
+                icon={<ArrowLeftIcon />}
+                onClick={() => router.back()}
+              />
+            </div>
+            <div className="hidden md:block fixed left-[16px] top-[16px] z-50">
               <Tooltip content="Back to home" direction="right">
                 <Button
                   ariaLabel="Go back"
